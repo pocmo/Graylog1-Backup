@@ -1,0 +1,34 @@
+<table>
+  <tr>
+    <th class="log-table-date"><%= th_link_to_order "Date" %></th>
+    <th class="log-table-host"><%= th_link_to_order "Host" %></th>
+    <th class="log-table-severity"><%= th_link_to_order "Severity" %></th>
+    <th class="log-table-message"><%= th_link_to_order "Message" %></th>
+    <th class="log-table-delete"><%= th_link_to_order "Delete" %></th>
+  </tr>
+<% counter = 0 %>
+<% records.each do |message| %>
+  <tr class="table-row-<%= counter % 2 == 0 ? "light" : "dark" %>">
+    <td><%= message.ReceivedAt %></td>
+    <td><%=h message.FromHost %></td>
+    <td><%= message.human_readable_severity %></td>
+    <td><%= truncate h(message.Message), :length => 150 %></td>
+    <td><%= check_box_tag "delete", message.ID, false, :onclick => "delete_log_message(this, '#{message.ID}', '#{form_authenticity_token}')" %></td>
+  </tr>
+  <% counter+=1 %>
+<% end %>
+</table>
+
+<% if records.count > 0 %>
+  <div id="delete-all">
+    <% if no_filters_set? @filter_strings %>
+      <%= link_to "Delete all messages hit by this filter or category", { :controller => "logentries", :action => "destroy_selection" }, :confirm => "Really delete all messages?" %>
+    <% else %>
+      <%= link_to "Delete all messages hit by this filter or category", { :controller => "logentries", :action => "destroy_selection", :filter_host => CGI::escape(@filter_strings["host"]), :filter_message => CGI::escape(@filter_strings["message"]), :filter_severity => @filter_strings["severity"], :filter_date_start => CGI::escape(@filter_strings["date_start"].to_s), :filter_date_end => CGI::escape(@filter_strings["date_end"].to_s) }, :confirm => "Really delete all messages hit by this filter?"  %>
+    <% end %>
+  </div>
+<% end %>
+
+<div id="pagination">
+  <%= will_paginate records %>
+</div>

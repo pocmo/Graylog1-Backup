@@ -1,0 +1,32 @@
+<h1>Categories</h1>
+
+<% if @categories.blank? %>
+  <strong>No categories found</strong>
+<% else %>
+  <table id="categories-list">
+    <tr>
+      <th>Title</th>
+      <th>Host</th>
+      <th>Message</th>
+      <th>Severity</th>
+      <th>Date start</th>
+      <th>Date end</th>
+      <th>Number of messages</th>
+      <th>Favorite</th>
+    </tr>
+  <% counter = 0 %>
+    <% @categories.each do |category| %>
+      <tr class="table-row-<%= counter % 2 == 0 ? "light" : "dark" %>">
+        <td class="categories-list-column-title"><%= link_to h(category.title), :action => "show", :id => category.id %></td>
+        <td><%= category.filter_host.blank? ? "<i>None</i>" : h(category.filter_host) %></td>
+        <td><%= category.filter_message.blank? ? "<i>None</i>" : h(category.filter_message) %></td>
+        <td><%= category.filter_severity.blank? ? "<i>None</i>" : h(category.filter_severity) %></td>
+        <td><%= category.filter_date_start.blank? ? "<i>None</i>" : h(category.filter_date_start) %></td>
+        <td><%= category.filter_date_end.blank? ? "<i>None</i>" : h(category.filter_date_end) %></td>
+        <td><%= @number_of_messages[category.id] %></td>
+        <td><%= check_box_tag "favorite", category.id, is_favorited_category?(category.id, current_user.id) , { :onclick => "favorite_category(#{category.id}, this, '#{form_authenticity_token}')" } %></td>
+      </tr>
+      <% counter+=1 %>
+    <% end %>
+  </table>
+<% end %>

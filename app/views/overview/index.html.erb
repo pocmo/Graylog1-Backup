@@ -1,0 +1,63 @@
+<h1>Overview</h1>
+
+<div id="new-messages">
+  <%= @recent_messages_count == 0 ? "No" : @recent_messages_count %> new messages since your last visit. 
+  <% if @recent_messages_count > 0 %>
+    <%= link_to "Show", { :controller => "logentries", :action => "recent" } %>
+  <% end %>
+</div>
+
+<div id="filters">
+  <% form_tag "/" do %>
+    <%= label_tag "filter_host", "Host" %>
+    <%= text_field :filter, :host, :size => 10, :value => @filter_strings["host"] %>
+
+    <%= label_tag "filter_message", "Message" %>
+    <%= text_field :filter, :message, :value => @filter_strings["message"] %>
+    
+    <%= label_tag "filter_severity", "Severity" %>
+    <%= select :filter, :severity, @severity_options %>
+    
+    <%= label_tag "filter_date_start", "Date start" %>
+    <%= text_field :filter, :date_start, :size => 15, :value => @filter_strings["date_start"] %>
+
+    <%= label_tag "filter_date_end", "Date end" %>
+    <%= text_field :filter, :date_end, :size => 15, :value => @filter_strings["date_end"] %>
+
+    <%= submit_tag "Filter" %>
+  <% end %>
+</div>
+
+<div id="new-category-from-filter">
+  <% if params[:commit] == "Filter" and (!@filter_strings["host"].blank? or !@filter_strings["message"].blank?) %>
+    <% form_for @new_category, :url => { :controller => "categories", :action => "create" } do |f| %>
+      <%= submit_tag "Save this filter as category:" %>
+      <%= f.text_field :title %>
+      <%= f.hidden_field :filter_host, :value => params[:filter][:host] %>
+      <%= f.hidden_field :filter_message, :value => params[:filter][:message] %>
+      <%= f.hidden_field :filter_severity, :value => params[:filter][:severity] %>
+      <%= f.hidden_field :filter_date_start, :value => params[:filter][:date_start] %>
+      <%= f.hidden_field :filter_date_end, :value => params[:filter][:date_end] %>
+    <% end %>
+  <% end %>
+</div>
+
+<span id="favorites-title">Favorites:</span>
+<ul id="favorites">
+  <% if @favorites.blank? %>
+    <li>None - Add some <%= link_to "here", :controller => "categories" %></li>
+  <% else %>
+    <% @favorites.each do |favorite| %>
+      <li>
+        <% unless favorite.category.blank? %>
+          <%= link_to h(favorite.category.title), :controller => "categories", :action => "show", :id => favorite.category.id %><%= favorite.id == @favorites.last.id ? "" : "," %>
+        <% end %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>
+
+<br style="clear: both;" />
+
+<%= render :partial => "overview/list", :locals => { :records => @messages } %>
+

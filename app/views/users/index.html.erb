@@ -1,0 +1,22 @@
+<h1>Users</h1>
+
+<table>
+  <tr>
+    <th>Username</th>
+    <th>Email address</th>
+    <th>Last activity</th>
+    <th>Created at</th>
+  </tr>
+
+  <% @users.each do |user| %>
+    <tr>
+      <td><%=h user.login %></td>
+      <td><%=h user.email %></td>
+      <td><%=h user.last_activity %></td>
+      <td><%=h user.created_at %></td>
+    </tr>
+  <% end %>
+
+</table>
+
+<%= link_to "Create user", :action => "new"%>

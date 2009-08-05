@@ -1,0 +1,23 @@
+<% if User.count > 0 %>
+  <h1>Create user</h1>
+<% else %>
+  <div id="login-box-head">&raquo; Create your first user</div> 
+<% end %>
+<% @user.password = @user.password_confirmation = nil %>
+
+<%= error_messages_for :user %>
+<% form_for :user, :url => { :action => "create" } do |f| -%>
+<p><%= label_tag 'login' %><br/>
+<%= f.text_field :login %></p>
+
+<p><%= label_tag 'email' %><br/>
+<%= f.text_field :email %></p>
+
+<p><%= label_tag 'password' %><br/>
+<%= f.password_field :password %></p>
+
+<p><%= label_tag 'password_confirmation', 'Confirm Password' %><br/>
+<%= f.password_field :password_confirmation %></p>
+
+<p><%= submit_tag 'Create user' %></p>
+<% end -%>

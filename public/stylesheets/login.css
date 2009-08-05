@@ -1,0 +1,20 @@
+#login-box {
+  width: 250px;
+  height: 200px;
+  margin: 0px auto;
+  margin-top: 100px;
+}
+
+#login-box-head {
+  width: 100%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  font-size: 16px;
+  background-color: #222222;
+  color: #FFFFFF;
+}
+
+#login-box input {
+  width: 250px;
+}

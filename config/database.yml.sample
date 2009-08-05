@@ -1,0 +1,17 @@
+development:
+  adapter: mysql
+  encoding: utf8
+  reconnect: false
+  database: graylog_development
+  pool: 5
+  username: youruser
+  password: yourpass
+  socket: /var/run/mysqld/mysqld.sock
+
+syslog:
+  adapter: mysql
+  encoding: utf8
+  database: your_Syslog_database
+  username: youruser
+  password: yourpass
+  socket: /var/run/mysqld/mysqld.sock

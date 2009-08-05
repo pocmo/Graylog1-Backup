@@ -1,0 +1,10 @@
+<h1>Category &raquo;<%=h @category.title%>&laquo;</h1>
+<div id="categories-filter-description">
+  Host: <%= @category.filter_host.blank? ? "No filter" : h(@category.filter_host) %> |
+  Message: <%= @category.filter_message.blank? ? "No filter" : h(@category.filter_message) %> |
+  Severity: <%= @category.filter_severity.blank? ? "No filter" : h(@category.filter_severity) %> |
+  Date start: <%= @category.filter_date_start.blank? ? "No filter" : h(@category.filter_date_start) %> |
+  Date end: <%= @category.filter_date_end.blank? ? "No filter" : h(@category.filter_date_end) %>
+</div>
+
+<%= render :partial => "overview/list", :locals => { :records => @filtered_messages } %>

@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+  <title>Graylog</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <%= stylesheet_link_tag "core.css" %>
+  <%= stylesheet_link_tag "application.css" %>
+  <%= javascript_include_tag "prototype.js" %>
+  <%= javascript_include_tag "application.js" %>
+  <% if @feed %>
+    <%= auto_discovery_link_tag :rss, { :controller => request.path_parameters["controller"], :action => request.path_parameters["action"], :feed => "true" } %>
+  <% end %>
+</head>
+<body>
+  
+<div id="top">
+  <div id="top-left">
+    <span id="top-title">Graylog</span> 
+    <span id="top-logged-in-user">&raquo; Logged in as <%= current_user.login %></span>
+  </div>
+  <ul id="top-menu">
+    <li><%= build_menu_link "Overview" %></li>
+    <li><%= build_menu_link "Categories" %></li>
+    <li><%= build_menu_link "Settings" %></li>
+    <li><%= build_menu_link "Users" %></li>
+    <li><%= link_to "Logout", { :controller => "sessions", :action => "destroy" } %></li>
+  </ul>
+  <div id="top-right">
+    <%= Time.now %>
+  </div>
+</div>
+
+<% unless flash["notice"].blank? %>
+  <div class="flash-message" id="flash-notice"><%=h flash["notice"] %></div>
+<% end %>
+
+<% unless flash["error"].blank? %>
+  <div class="flash-message" id="flash-error"><%=h flash["error"] %></div>
+<% end %>
+
+<div id="content">
+  <%= yield %>
+</div>
+
+<div id="footer">
+</div>
+
+</body>
+</html>
