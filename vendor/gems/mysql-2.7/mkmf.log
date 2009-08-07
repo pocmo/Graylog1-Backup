@@ -1,0 +1,69 @@
+find_library: checking for mysql_query() in -lmysqlclient... -------------------- yes
+
+"cc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I. -I/usr/local/include    -fno-strict-aliasing -g -g -O2  -fPIC   conftest.c  -L. -L/usr/lib -L/usr/local/lib -L. -Wl,-Bsymbolic-functions -rdynamic -Wl,-export-dynamic     -lruby1.8-static -lmysqlclient  -lpthread -ldl -lcrypt -lm   -lc"
+conftest.c: In Funktion »t«:
+conftest.c:3: Fehler: »mysql_query« nicht deklariert (erste Benutzung in dieser Funktion)
+conftest.c:3: Fehler: (Jeder nicht deklarierte Bezeichner wird nur einmal aufgeführt
+conftest.c:3: Fehler: für jede Funktion in der er auftritt.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))mysql_query; return 0; }
+/* end */
+
+"cc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I. -I/usr/local/include    -fno-strict-aliasing -g -g -O2  -fPIC   conftest.c  -L. -L/usr/lib -L/usr/local/lib -L. -Wl,-Bsymbolic-functions -rdynamic -Wl,-export-dynamic     -lruby1.8-static -lmysqlclient  -lpthread -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { mysql_query(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for mysql_ssl_set()... -------------------- yes
+
+"cc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I. -I/usr/local/include    -fno-strict-aliasing -g -g -O2  -fPIC   conftest.c  -L. -L/usr/lib -L/usr/local/lib -L. -Wl,-Bsymbolic-functions -rdynamic -Wl,-export-dynamic    -lmysqlclient  -lruby1.8-static -lmysqlclient  -lpthread -ldl -lcrypt -lm   -lc"
+conftest.c: In Funktion »t«:
+conftest.c:3: Fehler: »mysql_ssl_set« nicht deklariert (erste Benutzung in dieser Funktion)
+conftest.c:3: Fehler: (Jeder nicht deklarierte Bezeichner wird nur einmal aufgeführt
+conftest.c:3: Fehler: für jede Funktion in der er auftritt.)
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))mysql_ssl_set; return 0; }
+/* end */
+
+"cc -o conftest -I. -I/usr/lib/ruby/1.8/x86_64-linux -I. -I/usr/local/include    -fno-strict-aliasing -g -g -O2  -fPIC   conftest.c  -L. -L/usr/lib -L/usr/local/lib -L. -Wl,-Bsymbolic-functions -rdynamic -Wl,-export-dynamic    -lmysqlclient  -lruby1.8-static -lmysqlclient  -lpthread -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { mysql_ssl_set(); return 0; }
+/* end */
+
+--------------------
+
+have_header: checking for mysql.h... -------------------- no
+
+"cc -E -I. -I/usr/lib/ruby/1.8/x86_64-linux -I. -I/usr/local/include    -fno-strict-aliasing -g -g -O2  -fPIC    conftest.c -o conftest.i"
+conftest.c:1:19: Fehler: mysql.h: No such file or directory
+checked program was:
+/* begin */
+1: #include <mysql.h>
+/* end */
+
+--------------------
+
+have_header: checking for mysql/mysql.h... -------------------- yes
+
+"cc -E -I. -I/usr/lib/ruby/1.8/x86_64-linux -I. -I/usr/local/include    -fno-strict-aliasing -g -g -O2  -fPIC    conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include <mysql/mysql.h>
+/* end */
+
+--------------------
+

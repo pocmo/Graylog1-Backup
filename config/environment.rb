@@ -15,10 +15,15 @@ Rails::Initializer.run do |config|
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
 
   # Specify gems that this application depends on and have them installed with rake gems:install
-  # config.gem "bj"
-  # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
-  # config.gem "sqlite3-ruby", :lib => "sqlite3"
-  # config.gem "aws-s3", :lib => "aws/s3"
+  config.gem "actionmailer"
+  config.gem "actionpack"
+  config.gem "activerecord"
+  config.gem "activeresource"
+  config.gem "activesupport"
+  config.gem "mysql"
+  config.gem "rack"
+  config.gem "rails"
+  config.gem "rake"
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
