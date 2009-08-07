@@ -54,5 +54,30 @@ class ApplicationController < ActionController::Base
     user.last_activity = Time.now
     user.save
   end
+  
+  def build_order_string p_order, p_direction
+    # Ordering
+    order = String.new
+    if p_order.blank?
+      order = "ReceivedAt DESC"
+    else
+      case p_order
+        when "date": order = "ReceivedAt"
+        when "host": order = "FromHost"
+        when "severity": order = "Priority"
+        when "message": order = "Message"
+      end
+
+      # Add sorting order if a valid column was selected.
+      unless order.blank?
+        case p_direction
+          when "desc": order += " DESC"
+          when "asc": order += " ASC"
+          else order += " DESC"
+        end
+      end
+    end
+    return order
+  end
 
 end

@@ -34,17 +34,20 @@ class CategoriesController < ApplicationController
 
     # Build conditions from possibly set filter options
     conditions = build_conditions_from_filter_parameters @filter_strings["host"], @filter_strings["message"], @filter_strings["severity"], @filter_strings["date_start"], @filter_strings["date_end"] 
-    
+   
+    # Ordering from table heads
+    order = build_order_string params[:order], params[:direction]
+ 
     if params[:feed] == "true"
       limit = 50
       limit = params[:entries] unless params[:entries].blank?
-      @messages = Logentry.find :all, :order => "ReceivedAt DESC", :conditions => conditions, :limit => limit
+      @messages = Logentry.find :all, :order => order, :conditions => conditions, :limit => limit
       @feed_title = "Category #{@category.title}"
       @feed_description = "Overview of the last log messages in the category #{@category.title}"
       @feed_url = "http://localhost:3000/categories/show/#{@category.id}"
       render :template => "feed"
     else
-      @filtered_messages = Logentry.paginate :page => params[:page], :order => "ReceivedAt DESC", :conditions => conditions
+      @filtered_messages = Logentry.paginate :page => params[:page], :order => order, :conditions => conditions
     end
   end
 
