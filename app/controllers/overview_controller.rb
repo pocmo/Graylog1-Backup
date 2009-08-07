@@ -59,8 +59,10 @@ class OverviewController < ApplicationController
       @feed_url = "http://localhost:3000/"
       render :template => "feed"
     else
-      @favorites = Favorite.find_all_by_user_id current_user.id
-      @recent_messages_count = Logentry.recent current_user
+      if current_user
+        @favorites = Favorite.find_all_by_user_id current_user.id
+        @recent_messages_count = Logentry.recent current_user
+      end
       @messages = Logentry.paginate :page => params[:page], :order => order, :conditions => conditions
       @new_category = Category.new
     end

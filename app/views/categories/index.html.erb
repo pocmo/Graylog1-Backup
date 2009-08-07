@@ -12,7 +12,9 @@
       <th>Date start</th>
       <th>Date end</th>
       <th>Number of messages</th>
-      <th>Favorite</th>
+      <% unless current_user.blank? %>
+        <th>Favorite</th>
+      <% end %>
     </tr>
   <% counter = 0 %>
     <% @categories.each do |category| %>
@@ -24,7 +26,9 @@
         <td><%= category.filter_date_start.blank? ? "<i>None</i>" : h(category.filter_date_start) %></td>
         <td><%= category.filter_date_end.blank? ? "<i>None</i>" : h(category.filter_date_end) %></td>
         <td><%= @number_of_messages[category.id] %></td>
-        <td><%= check_box_tag "favorite", category.id, is_favorited_category?(category.id, current_user.id) , { :onclick => "favorite_category(#{category.id}, this, '#{form_authenticity_token}')" } %></td>
+        <% unless current_user.blank? %>
+          <td><%= check_box_tag "favorite", category.id, is_favorited_category?(category.id, current_user.id) , { :onclick => "favorite_category(#{category.id}, this, '#{form_authenticity_token}')" } %></td>
+        <% end %>
       </tr>
       <% counter+=1 %>
     <% end %>

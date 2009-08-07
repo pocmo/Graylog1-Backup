@@ -1,7 +1,5 @@
 class SessionsController < ApplicationController
 
-  skip_before_filter :block_unauthenticated, :except => :destroy
-
   layout "login"
 
   def new

@@ -14,8 +14,16 @@
   margin-left: 10px;
 }
 
-#top-logged-in-user {
+#top-user {
   font-size: 10px;
+}
+
+#top-user a {
+  color: #FFFFFF;
+}
+
+#top-user a:hover {
+  color: #FF0000;
 }
 
 #top-menu {

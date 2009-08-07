@@ -1,5 +1,5 @@
 <% if User.count > 0 %>
-  <h1>Create user</h1>
+  <h1>Create Account</h1>
 <% else %>
   <div id="login-box-head">&raquo; Create your first user</div> 
 <% end %>
@@ -19,5 +19,5 @@
 <p><%= label_tag 'password_confirmation', 'Confirm Password' %><br/>
 <%= f.password_field :password_confirmation %></p>
 
-<p><%= submit_tag 'Create user' %></p>
+<p><%= submit_tag 'Create account' %></p>
 <% end -%>

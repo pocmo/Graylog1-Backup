@@ -51,10 +51,10 @@ class CategoriesController < ApplicationController
   def create
     @new_category = Category.new params[:category]
     if @new_category.save
-      flash["notice"] = "Category has been created."
+      flash[:notice] = "Category has been created."
       redirect_to :action => "index"
     else
-      flash["error"] = "Could not create category!"
+      flash[:error] = "Could not create category!"
       redirect_to :controller => "settings", :action => "index"
     end
   end
@@ -62,14 +62,18 @@ class CategoriesController < ApplicationController
   def destroy
     category = Category.find params[:id]
     if category.destroy
-      flash["notice"] = "Category has been deleted."
+      flash[:notice] = "Category has been deleted."
     else
-      flash["error"] = "Could not delete category!"
+      flash[:error] = "Could not delete category!"
     end
     redirect_to :controller => "settings", :action => "index"
   end
   
   def favorite
+    if current_user.blank?
+      render :text => "not logged in"
+      return
+    end
     favorite = Favorite.new
     favorite.category_id = params[:id]
     favorite.user_id = current_user.id
@@ -78,6 +82,10 @@ class CategoriesController < ApplicationController
   end
 
   def unfavorite
+    if current_user.blank?
+      render :text => "not logged in"
+      return
+    end
     favorite = Favorite.find_by_category_id_and_user_id params[:id], current_user.id
     favorite.destroy
     render :text => nil

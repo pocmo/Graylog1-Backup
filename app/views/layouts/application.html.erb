@@ -17,26 +17,35 @@
 <div id="top">
   <div id="top-left">
     <span id="top-title">Graylog</span> 
-    <span id="top-logged-in-user">&raquo; Logged in as <%= current_user.login %></span>
+    <span id="top-user">
+      <% if current_user.blank? %>
+        &raquo; <%= link_to "Log in", :controller => "sessions", :action => "new" %>
+        /
+        <%= link_to "Create account", :controller => "users", :action => "new" %>
+      <% else %>
+        &raquo; Logged in as <%= current_user.login %>
+      <% end %>
+    </span>
   </div>
   <ul id="top-menu">
     <li><%= build_menu_link "Overview" %></li>
     <li><%= build_menu_link "Categories" %></li>
     <li><%= build_menu_link "Settings" %></li>
-    <li><%= build_menu_link "Users" %></li>
-    <li><%= link_to "Logout", { :controller => "sessions", :action => "destroy" } %></li>
+    <% unless current_user.blank? %>
+      <li><%= link_to "Logout", { :controller => "sessions", :action => "destroy" } %></li>
+    <% end %>
   </ul>
   <div id="top-right">
     <%= Time.now %>
   </div>
 </div>
 
-<% unless flash["notice"].blank? %>
-  <div class="flash-message" id="flash-notice"><%=h flash["notice"] %></div>
+<% unless flash[:notice].blank? %>
+  <div class="flash-message" id="flash-notice"><%=h flash[:notice] %></div>
 <% end %>
 
-<% unless flash["error"].blank? %>
-  <div class="flash-message" id="flash-error"><%=h flash["error"] %></div>
+<% unless flash[:error].blank? %>
+  <div class="flash-message" id="flash-error"><%=h flash[:error] %></div>
 <% end %>
 
 <div id="content">

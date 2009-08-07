@@ -1,11 +1,13 @@
 <h1>Overview</h1>
 
-<div id="new-messages">
-  <%= @recent_messages_count == 0 ? "No" : @recent_messages_count %> new messages since your last visit. 
-  <% if @recent_messages_count > 0 %>
-    <%= link_to "Show", { :controller => "logentries", :action => "recent" } %>
-  <% end %>
-</div>
+<% unless current_user.blank? %>
+  <div id="new-messages">
+    <%= @recent_messages_count == 0 ? "No" : @recent_messages_count %> new messages since your last visit. 
+    <% if @recent_messages_count > 0 %>
+      <%= link_to "Show", { :controller => "logentries", :action => "recent" } %>
+    <% end %>
+  </div>
+<% end %>
 
 <div id="filters">
   <% form_tag "/" do %>

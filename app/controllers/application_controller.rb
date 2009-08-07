@@ -2,7 +2,6 @@ class ApplicationController < ActionController::Base
 
   include AuthenticatedSystem
 
-  before_filter :block_unauthenticated
   before_filter :update_last_user_activity
 
   helper :all # include all helpers, all the time
