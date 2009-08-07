@@ -41,20 +41,22 @@
   <% end %>
 </div>
 
-<span id="favorites-title">Favorites:</span>
-<ul id="favorites">
-  <% if @favorites.blank? %>
-    <li>None - Add some <%= link_to "here", :controller => "categories" %></li>
-  <% else %>
-    <% @favorites.each do |favorite| %>
-      <li>
-        <% unless favorite.category.blank? %>
-          <%= link_to h(favorite.category.title), :controller => "categories", :action => "show", :id => favorite.category.id %><%= favorite.id == @favorites.last.id ? "" : "," %>
-        <% end %>
-      </li>
+<% unless current_user.blank? %>
+  <span id="favorites-title">Favorites:</span>
+  <ul id="favorites">
+    <% if @favorites.blank? %>
+      <li>None - Add some <%= link_to "here", :controller => "categories" %></li>
+    <% else %>
+      <% @favorites.each do |favorite| %>
+        <li>
+          <% unless favorite.category.blank? %>
+            <%= link_to h(favorite.category.title), :controller => "categories", :action => "show", :id => favorite.category.id %><%= favorite.id == @favorites.last.id ? "" : "," %>
+          <% end %>
+        </li>
+      <% end %>
     <% end %>
-  <% end %>
-</ul>
+  </ul>
+<% end %>
 
 <br style="clear: both;" />
 
