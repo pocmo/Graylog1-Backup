@@ -3,9 +3,12 @@ class SettingsController < ApplicationController
     @new_category = Category.new
     @categories = Category.find :all
     @settings = Setting.new
-    @geterror_url = String.new
-    unless Setting.last.blank? or Setting.last.geterror_url.blank?
-      @geterror_url = Setting.last.geterror_url
+    if Setting.last.blank?
+      @geterror_url = String.new
+      @base_url = String.new
+    else
+      Setting.last.geterror_url.blank? ? @geterror_url = String.new : @geterror_url = Setting.last.geterror_url
+      Setting.last.base_url.blank? ? @base_url = String.new : @base_url = Setting.last.base_url
     end
   end
 
@@ -14,7 +17,8 @@ class SettingsController < ApplicationController
     if settings.blank?
       settings = Setting.new params[:setting]
     else
-      settings.geterror_url = params[:setting][:geterror_url]
+      settings.geterror_url = params[:setting][:geterror_url] unless params[:setting][:geterror_url].blank?
+      settings.base_url = params[:setting][:base_url] unless params[:setting][:base_url].blank?
     end
     if settings.save
       flash[:notice] = "Settings updated."
