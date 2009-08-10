@@ -37,6 +37,11 @@ class CategoriesController < ApplicationController
    
     # Ordering from table heads
     order = build_order_string params[:order], params[:direction]
+    
+    @geterror_url = String.new
+    unless Setting.last.blank?
+      @geterror_url = Setting.last.geterror_url unless Setting.last.geterror_url.blank?
+    end
  
     if params[:feed] == "true"
       limit = 50

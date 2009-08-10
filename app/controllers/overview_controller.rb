@@ -52,6 +52,15 @@ class OverviewController < ApplicationController
         end
       end
     end
+
+    # Find out if we want to group the results
+    group_string = nil
+    group_string = params[:group_by] unless params[:group_by].blank?
+      
+    @geterror_url = String.new
+    unless Setting.last.blank?
+      @geterror_url = Setting.last.geterror_url unless Setting.last.geterror_url.blank?
+    end
  
     if params[:feed] == "true"
       limit = 50
@@ -66,11 +75,12 @@ class OverviewController < ApplicationController
       end
       render :template => "feed"
     else
+
       if current_user
         @favorites = Favorite.find_all_by_user_id current_user.id
         @recent_messages_count = Logentry.recent current_user
       end
-      @messages = Logentry.paginate :page => params[:page], :order => order, :conditions => conditions
+      @messages = Logentry.paginate :page => params[:page], :order => order, :conditions => conditions, :group => group_string
       @new_category = Category.new
     end
   end
