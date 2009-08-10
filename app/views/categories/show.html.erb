@@ -8,3 +8,7 @@
 </div>
 
 <%= render :partial => "overview/list", :locals => { :records => @filtered_messages } %>
+
+<p>
+  <%= link_to "Delete this category", { :action => "destroy", :id => @category.id }, :confirm => "Really delete this category?" %>
+</p>
