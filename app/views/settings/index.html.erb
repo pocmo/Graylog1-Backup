@@ -31,3 +31,10 @@
   <%= f.text_field :geterror_url, :value => @geterror_url %>
   <%= submit_tag "Save" %>
 <% end %>
+
+<h2>Base URL</h2>
+<% form_for @settings, :url => { :action => "update" } do |f| %>
+  <%= f.label :base_url, "<strong>URL:</strong>" %>
+  <%= f.text_field :base_url, :value => @base_url %>
+  <%= submit_tag "Save" %>
+<% end %>
