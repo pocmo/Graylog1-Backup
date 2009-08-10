@@ -44,7 +44,11 @@ class CategoriesController < ApplicationController
       @messages = Logentry.find :all, :order => order, :conditions => conditions, :limit => limit
       @feed_title = "Category #{@category.title}"
       @feed_description = "Overview of the last log messages in the category #{@category.title}"
-      @feed_url = "http://localhost:3000/categories/show/#{@category.id}"
+      if Setting.last.blank?
+        @feed_url = "/"
+      else
+        @feed_url = "#{Setting.last.base_url}/categories/show/#{@category.id}"
+      end
       render :template => "feed"
     else
       @filtered_messages = Logentry.paginate :page => params[:page], :order => order, :conditions => conditions

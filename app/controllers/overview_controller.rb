@@ -59,7 +59,11 @@ class OverviewController < ApplicationController
       @messages = Logentry.find :all, :order => order, :conditions => conditions, :limit => limit
       @feed_title = "Overview"
       @feed_description = "Overview of the last log messages"
-      @feed_url = "http://localhost:3000/"
+      if Setting.last.blank?
+        @feed_url = "/"
+      else
+        @feed_url = "#{Setting.last.base_url}/"
+      end
       render :template => "feed"
     else
       if current_user
