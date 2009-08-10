@@ -14,8 +14,8 @@
     <td><%= message.human_readable_severity %></td>
     <td>
       <%= truncate h(message.Message), :length => 150 %>
-      <% unless Setting.last.blank? or Setting.last.geterror_url.blank? %>
-        <%= link_to "[more]", "#{Setting.last.geterror_url}?s=#{message.FromHost}&q=#{message.SysLogTag}", :target => "_blank" %>
+      <% unless @geterror_url.blank? %>
+        <%= link_to "[more]", "#{@geterror_url}?s=#{message.FromHost}&q=#{message.SysLogTag}", :target => "_blank" %>
       <% end %>
     </td>
     <td><%= check_box_tag "delete", message.ID, false, :onclick => "delete_log_message(this, '#{message.ID}', '#{form_authenticity_token}')" %></td>
