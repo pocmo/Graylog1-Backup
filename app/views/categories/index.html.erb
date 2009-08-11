@@ -22,7 +22,7 @@
         <td class="categories-list-column-title"><%= link_to h(category.title), :action => "show", :id => category.id %></td>
         <td><%= category.filter_host.blank? ? "<i>None</i>" : h(category.filter_host) %></td>
         <td><%= category.filter_message.blank? ? "<i>None</i>" : h(category.filter_message) %></td>
-        <td><%= category.filter_severity.blank? ? "<i>None</i>" : h(category.filter_severity) %></td>
+        <td><%= category.filter_severity.blank? ? "<i>None</i>" : "&gt;= #{h(category.filter_severity)}" %></td>
         <td><%= category.filter_date_start.blank? ? "<i>None</i>" : h(category.filter_date_start) %></td>
         <td><%= category.filter_date_end.blank? ? "<i>None</i>" : h(category.filter_date_end) %></td>
         <td><%= @number_of_messages[category.id] %></td>
