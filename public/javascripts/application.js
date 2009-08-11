@@ -14,3 +14,11 @@ function delete_log_message(box, id, token){
   new Ajax.Request("/logentries/destroy/" + id, { asynchronous: true, evalScripts: true, parameters: "authenticity_token=" + token});
   row.parentNode.removeChild(row);
 }
+
+function mark_validmessage(box, id, token){
+  if(!box.checked){
+   new Ajax.Request("/validmessages/destroy/" + id, { asynchronous: true, evalScripts: true, parameters: "authenticity_token=" + token});
+  }else{
+   new Ajax.Request("/validmessages/create/" + id, { asynchronous: true, evalScripts: true, parameters: "authenticity_token=" + token});
+  }
+}

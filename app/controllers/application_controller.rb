@@ -16,6 +16,13 @@ class ApplicationController < ActionController::Base
     return true
   end
 
+  helper_method :is_valid_message?
+  def is_valid_message? message
+    vmsg = Validmessage.find_by_syslog_message_id message.ID
+    return false if vmsg.blank?
+    return true
+  end
+
   def build_conditions_from_filter_parameters host, message, severity, date_start, date_end
     conditions = Array.new
     conditions << [ "FromHost = ?", host ] unless host.blank?
