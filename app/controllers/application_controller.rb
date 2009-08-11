@@ -17,17 +17,23 @@ class ApplicationController < ActionController::Base
   end
 
   def build_conditions_from_filter_parameters host, message, severity, date_start, date_end
-    c1 = String.new
-    c2 = String.new
-    c3 = String.new
-    c4 = String.new
-    c1 = [ "FromHost = ?", host ] if !host.blank?
-    c2 = [ "Message LIKE ?", "%#{message}%" ] if !message.blank?
-    c3 = [ "Priority <= ?", severity.to_i ] if !severity.blank?
-    if !date_start.blank? and !date_end.blank?
-      c4 = [ "ReceivedAt >= ? AND ReceivedAt <= ?", date_start, date_end ]
+    conditions = Array.new
+    conditions << [ "FromHost = ?", host ] unless host.blank?
+    conditions << [ "Message LIKE ?", "%#{message}%" ] unless message.blank?
+    conditions << [ "Priority <= ?", severity.to_i ] unless severity.blank?
+    conditions << [ "ReceivedAt >= ? AND ReceivedAt <= ?", date_start, date_end ] unless date_start.blank? or date_end.blank?
+
+    return Logentry.merge_conditions *conditions
+  end
+
+  def build_conditions_from_overview_blacklist
+    conditions = Array.new
+    ovbl_terms = Blacklistterm.find :all
+    ovbl_terms.each do |term|
+      conditions << [ "Message NOT LIKE ?", "%#{term.message}%" ] unless term.message.blank?
     end
-    return Logentry.merge_conditions c1, c2, c3, c4
+
+    return Logentry.merge_conditions *conditions
   end
 
   private

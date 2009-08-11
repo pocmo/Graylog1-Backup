@@ -17,6 +17,7 @@ class OverviewController < ApplicationController
     @severity_options << [ ">= Emergency (7)", 0 ]
 
     @filter_strings = Hash.new
+    filter_conditions = String.new
     if params[:commit] == "Filter"
       @filter_strings["host"] = params[:filter][:host]
       @filter_strings["message"] = params[:filter][:message]
@@ -25,9 +26,14 @@ class OverviewController < ApplicationController
       @filter_strings["date_end"] = params[:filter][:date_end]
 
       # Build conditions from possibly set filter options
-      conditions = build_conditions_from_filter_parameters @filter_strings["host"], @filter_strings["message"], @filter_strings["severity"], @filter_strings["date_start"], @filter_strings["date_end"] 
+      filter_conditions = build_conditions_from_filter_parameters @filter_strings["host"], @filter_strings["message"], @filter_strings["severity"], @filter_strings["date_start"], @filter_strings["date_end"] 
     end    
    
+    # Overview blacklist
+    overview_blacklist_conditions = build_conditions_from_overview_blacklist
+
+    conditions = Logentry.merge_conditions filter_conditions, overview_blacklist_conditions
+
     # Ordering from table heads
     order = build_order_string params[:order], params[:direction]
 

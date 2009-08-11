@@ -13,3 +13,27 @@
   <%= f.text_field :base_url, :value => @base_url %>
   <%= submit_tag "Save" %>
 <% end %>
+
+<h2>Overview blacklist</h2>
+Messages that include the following terms will not be shown in the overview:
+
+<ul>
+  <% if @blacklist_terms.blank? %>
+    <li>No blacklist terms defined</li>
+  <% else %>
+    <% @blacklist_terms.each do |term| %>
+      <li>
+        <%=h term.message %>
+        <span class="settings-overview-blacklist-term-delete">
+          <%= link_to "[x]", { :controller => "blacklistterms", :action => "destroy", :id => term.id }, :confirm => "Really delete this term?" %>
+        </span>
+      </li>
+    <% end %>
+  <% end %>
+</ul>
+
+<% form_for @new_blacklist_term, :url => { :controller => "blacklistterms", :action => "create" } do |f| %>
+  <%= f.label :message, "New term:" %>
+  <%= f.text_field :message %>
+  <%= submit_tag "Add" %>
+<% end %>

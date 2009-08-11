@@ -10,6 +10,8 @@ class SettingsController < ApplicationController
       Setting.last.geterror_url.blank? ? @geterror_url = String.new : @geterror_url = Setting.last.geterror_url
       Setting.last.base_url.blank? ? @base_url = String.new : @base_url = Setting.last.base_url
     end
+    @blacklist_terms = Blacklistterm.find :all
+    @new_blacklist_term = Blacklistterm.new
   end
 
   def update

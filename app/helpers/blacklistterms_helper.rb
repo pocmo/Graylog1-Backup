@@ -1,0 +1,2 @@
+module BlacklisttermsHelper
+end
