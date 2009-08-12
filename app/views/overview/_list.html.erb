@@ -15,7 +15,7 @@
 <% counter = 0 %>
 <% records.each do |message| %>
   <tr class="table-row-<%= counter % 2 == 0 ? "light" : "dark" %>">
-    <td class="log-table-mark-row"><%= check_box_tag "#{message.ID}_delete", message.ID, false %></td>
+    <td class="log-table-mark-row"><%= check_box_tag "#{message.ID}_#{Time.now.to_i}", message.ID, false %></td>
     <td><%= message.ReceivedAt %></td>
     <td><%=h message.FromHost %></td>
     <td><%= message.human_readable_severity %></td>
