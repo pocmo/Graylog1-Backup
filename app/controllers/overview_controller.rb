@@ -47,6 +47,7 @@ class OverviewController < ApplicationController
         when "host": order = "FromHost"
         when "severity": order = "Priority"
         when "message": order = "Message"
+        else order = "ReceivedAt"
       end
 
       # Add sorting order if a valid column was selected.
