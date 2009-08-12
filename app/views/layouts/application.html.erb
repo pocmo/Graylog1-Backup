@@ -30,6 +30,7 @@
   <ul id="top-menu">
     <li><%= build_menu_link "Overview" %></li>
     <li><%= build_menu_link "Categories" %></li>
+    <li><%= build_menu_link "Valid messages", "validmessages" %></li>
     <li><%= build_menu_link "Settings" %></li>
     <% unless current_user.blank? %>
       <li><%= link_to "Logout", { :controller => "sessions", :action => "destroy" } %></li>

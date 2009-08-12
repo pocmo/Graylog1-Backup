@@ -7,7 +7,7 @@
   Date end: <%= @category.filter_date_end.blank? ? "No filter" : h(@category.filter_date_end) %>
 </div>
 
-<%= render :partial => "overview/list", :locals => { :records => @filtered_messages } %>
+<%= render :partial => "overview/list", :locals => { :records => @filtered_messages, :is_valid_messages_view => false } %>
 
 <p>
   <%= link_to "Delete this category", { :action => "destroy", :id => @category.id }, :confirm => "Really delete this category?" %>

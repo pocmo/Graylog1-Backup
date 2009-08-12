@@ -1,9 +1,11 @@
 module ApplicationHelper
-  def build_menu_link to
+  def build_menu_link to, link_target = nil
+    name = to
+    to = link_target unless link_target.blank?
     if request.path_parameters["controller"] == to.downcase
-      link_to to, { :controller => to }, :class => "top-menu-active-link"
+      link_to name, { :controller => to }, :class => "top-menu-active-link"
     else
-      link_to to, :controller => to
+      link_to name, :controller => to
     end
   end
   

@@ -1,6 +1,8 @@
 <table>
   <tr>
-    <th class="log-table-valid"><%= th_link_to_order "Valid" %></th>
+    <% unless is_valid_messages_view %>
+      <th class="log-table-valid"><%= th_link_to_order "Valid" %></th>
+    <% end %>
     <th class="log-table-date"><%= th_link_to_order "Date" %></th>
     <th class="log-table-host"><%= th_link_to_order "Host" %></th>
     <th class="log-table-severity"><%= th_link_to_order "Severity" %></th>
@@ -10,7 +12,11 @@
 <% counter = 0 %>
 <% records.each do |message| %>
   <tr class="table-row-<%= counter % 2 == 0 ? "light" : "dark" %>">
-    <td><%= check_box_tag "valid", message.ID, is_valid_message?(message), :onclick => "mark_validmessage(this, '#{message.ID}', '#{form_authenticity_token}')" %></td>
+    <% unless is_valid_messages_view %>
+      <td>
+        <%= check_box_tag "valid", message.ID, is_valid_message?(message), :onclick => "mark_validmessage(this, '#{message.ID}', '#{form_authenticity_token}')" %>
+      </td>
+    <% end %>
     <td><%= message.ReceivedAt %></td>
     <td><%=h message.FromHost %></td>
     <td><%= message.human_readable_severity %></td>
@@ -26,7 +32,7 @@
 <% end %>
 </table>
 
-<% if records.count > 0 %>
+<% if records.count > 0 and !@filter_strings.blank? %>
   <div id="delete-all">
     <% if no_filters_set? @filter_strings %>
       <%= link_to "Delete all messages hit by this filter or category", { :controller => "logentries", :action => "destroy_selection" }, :confirm => "Really delete all messages?" %>

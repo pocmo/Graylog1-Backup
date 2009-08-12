@@ -1,4 +1,10 @@
 class ValidmessagesController < ApplicationController
+  def index
+    @messages = Validmessage.paginate :page => params[:page],
+      :joins => "LEFT JOIN `Syslog`.`SystemEvents` AS messages ON messages.ID = validmessages.syslog_message_id",
+      :select => "validmessages.id, messages.ID, ReceivedAt, Priority, FromHost, Message, SysLogTag"
+  end
+
   def create
     if params[:id].blank?
       render :status => 500, :text => "missing parameters"
