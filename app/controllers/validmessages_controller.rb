@@ -6,6 +6,9 @@ class ValidmessagesController < ApplicationController
   end
 
   def create
+    render :text => nil
+    return
+
     if params[:id].blank?
       render :status => 500, :text => "missing parameters"
       return

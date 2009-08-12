@@ -12,8 +12,8 @@ class ApplicationController < ActionController::Base
   helper_method :is_favorited_category?
   def is_favorited_category? category_id, user_id
     favorite = Favorite.find_by_category_id_and_user_id category_id, user_id
-    return false if favorite.blank?
-    return true
+    return "" if favorite.blank?
+    return "checked=\"checked\""
   end
 
   helper_method :is_valid_message?

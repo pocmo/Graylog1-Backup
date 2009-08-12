@@ -1,22 +1,20 @@
-<table>
+Actions: <%= link_to "Delete", { }, "data-action" => "delete" %>,
+        <%= link_to "Valid", { },  "data-action" => "markAsValid" %>
+
+<%= render :partial => "pager", :locals => { :records => records } %>
+<table id="gl-table">
   <tr>
-    <% unless is_valid_messages_view %>
-      <th class="log-table-valid"><%= th_link_to_order "Valid" %></th>
-    <% end %>
     <th class="log-table-date"><%= th_link_to_order "Date" %></th>
     <th class="log-table-host"><%= th_link_to_order "Host" %></th>
     <th class="log-table-severity"><%= th_link_to_order "Severity" %></th>
     <th class="log-table-message"><%= th_link_to_order "Message" %></th>
-    <th class="log-table-delete">Delete</th>
+    <th class="log-table-mark">
+      <input type="checkbox" data-action="checkAll" value="checkAll" />
+    </th>
   </tr>
 <% counter = 0 %>
 <% records.each do |message| %>
   <tr class="table-row-<%= counter % 2 == 0 ? "light" : "dark" %>">
-    <% unless is_valid_messages_view %>
-      <td>
-        <%= check_box_tag "valid", message.ID, is_valid_message?(message), :onclick => "mark_validmessage(this, '#{message.ID}', '#{form_authenticity_token}')" %>
-      </td>
-    <% end %>
     <td><%= message.ReceivedAt %></td>
     <td><%=h message.FromHost %></td>
     <td><%= message.human_readable_severity %></td>
@@ -26,7 +24,7 @@
         <%= link_to "[more]", "#{@geterror_url}?s=#{message.FromHost}&q=#{message.SysLogTag}", :target => "_blank" %>
       <% end %>
     </td>
-    <td><%= check_box_tag "delete", message.ID, false, :onclick => "delete_log_message(this, '#{message.ID}', '#{form_authenticity_token}')" %></td>
+    <td class="log-table-mark-row"><%= check_box_tag "#{message.ID}_delete", message.ID, false %></td>
   </tr>
   <% counter+=1 %>
 <% end %>
@@ -42,6 +40,4 @@
   </div>
 <% end %>
 
-<div id="pagination">
-  <%= will_paginate records %>
-</div>
+<%= render :partial => "pager", :locals => { :records => records } %>

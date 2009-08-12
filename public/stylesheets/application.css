@@ -138,3 +138,7 @@
   float: left;
   padding-right: 10px;
 }
+
+.log-table-mark-row {
+  text-align: right;
+}

@@ -3,7 +3,7 @@
 <% if @categories.blank? %>
   <strong>No categories found</strong>
 <% else %>
-  <table id="categories-list">
+  <table id="gl-table">
     <tr>
       <th>Title</th>
       <th>Host</th>
@@ -27,7 +27,9 @@
         <td><%= category.filter_date_end.blank? ? "<i>None</i>" : h(category.filter_date_end) %></td>
         <td><%= @number_of_messages[category.id] %></td>
         <% unless current_user.blank? %>
-          <td><%= check_box_tag "favorite", category.id, is_favorited_category?(category.id, current_user.id) , { :onclick => "favorite_category(#{category.id}, this, '#{form_authenticity_token}')" } %></td>
+          <td>
+            <input type="checkbox" value="<%= category.id %>" <%= is_favorited_category?(category.id, current_user.id) %> data-action="addFavorite" />
+          </td>
         <% end %>
       </tr>
       <% counter+=1 %>
