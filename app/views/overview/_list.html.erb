@@ -1,7 +1,7 @@
-Actions: <%= link_to "Delete", { }, "data-action" => "delete" %>,
-        <%= link_to "Valid", { },  "data-action" => "markAsValid" %>
+<div id="gl-table-top">
+  <%= render :partial => "pager", :locals => { :records => records } %>
+</div>
 
-<%= render :partial => "pager", :locals => { :records => records } %>
 <table id="gl-table">
   <tr>
     <th class="log-table-date"><%= th_link_to_order "Date" %></th>

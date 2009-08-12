@@ -85,9 +85,17 @@
   width: 120px;
 }
 
-#pagination {
+#gl-table-top {
   margin-top: 10px;
 }
+
+#gl-table-pagination {
+  float: left;
+}
+
+#gl-table-checkbox-actions {
+  float: right;
+} 
 
 #filters {
   margin-bottom: 15px;
@@ -137,8 +145,4 @@
   font-weight: bold;
   float: left;
   padding-right: 10px;
-}
-
-.log-table-mark-row {
-  text-align: right;
 }
