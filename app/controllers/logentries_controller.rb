@@ -1,10 +1,17 @@
 class LogentriesController < ApplicationController
   def destroy
-    # Also delete Validmessage if there is one connected to this Logentry.
-    vm = Validmessage.find_by_syslog_message_id params[:id]
-    vm.destroy unless vm.blank?
+    # We get the IDs to delete in a long string separated by comma.
+    ids = params[:items].split ","
 
-    ActiveRecord::Base.connection.execute "DELETE FROM `Syslog`.`SystemEvents` WHERE `ID` = #{params[:id].to_i}"
+    ids.each do |id|
+      next if id == "checkAll"
+      # Also delete Validmessage if there is one connected to this Logentry.
+      vm = Validmessage.find_by_syslog_message_id id
+      vm.destroy unless vm.blank?
+      # Now delete the message itself.
+      ActiveRecord::Base.connection.execute "DELETE FROM `Syslog`.`SystemEvents` WHERE `ID` = #{id.to_i}"
+    end
+
     render :text => nil
   end
 
