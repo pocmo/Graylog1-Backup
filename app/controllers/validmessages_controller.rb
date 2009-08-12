@@ -6,16 +6,16 @@ class ValidmessagesController < ApplicationController
   end
 
   def create
-    render :text => nil
-    return
+    # We get the IDs to create in a long string separated by comma.
+    ids = params[:items].split ","
 
-    if params[:id].blank?
-      render :status => 500, :text => "missing parameters"
-      return
+    ids.each do |id|
+      next if id == "checkAll"
+      msg = Validmessage.new
+      msg.syslog_message_id = id
+      msg.save
     end
-    msg = Validmessage.new
-    msg.syslog_message_id = params[:id]
-    msg.save
+
     render :text => nil
   end
 

@@ -1,30 +1,30 @@
 <div id="gl-table-top">
-  <%= render :partial => "pager", :locals => { :records => records } %>
+  <%= render :partial => "overview/pager", :locals => { :records => records } %>
 </div>
 
 <table id="gl-table">
   <tr>
+    <th class="log-table-mark">
+      <input type="checkbox" data-action="checkAll" value="checkAll" />
+    </th>
     <th class="log-table-date"><%= th_link_to_order "Date" %></th>
     <th class="log-table-host"><%= th_link_to_order "Host" %></th>
     <th class="log-table-severity"><%= th_link_to_order "Severity" %></th>
     <th class="log-table-message"><%= th_link_to_order "Message" %></th>
-    <th class="log-table-mark">
-      <input type="checkbox" data-action="checkAll" value="checkAll" />
-    </th>
   </tr>
 <% counter = 0 %>
 <% records.each do |message| %>
   <tr class="table-row-<%= counter % 2 == 0 ? "light" : "dark" %>">
+    <td class="log-table-mark-row"><%= check_box_tag "#{message.ID}_delete", message.ID, false %></td>
     <td><%= message.ReceivedAt %></td>
     <td><%=h message.FromHost %></td>
     <td><%= message.human_readable_severity %></td>
-    <td>
+    <td class="<%= is_valid_message?(message) ? "gl-table-valid-item" : "" %>">
       <%= truncate h(message.Message), :length => 150 %>
       <% unless @geterror_url.blank? %>
         <%= link_to "[more]", "#{@geterror_url}?s=#{message.FromHost}&q=#{message.SysLogTag}", :target => "_blank" %>
       <% end %>
     </td>
-    <td class="log-table-mark-row"><%= check_box_tag "#{message.ID}_delete", message.ID, false %></td>
   </tr>
   <% counter+=1 %>
 <% end %>
@@ -40,4 +40,4 @@
   </div>
 <% end %>
 
-<%= render :partial => "pager", :locals => { :records => records } %>
+<%= render :partial => "overview/pager", :locals => { :records => records } %>

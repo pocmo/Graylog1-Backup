@@ -76,3 +76,7 @@ td {
 .table-row-dark {
   background-color: #EEEEEE;
 }
+
+.gl-table-valid-item {
+  font-weight: bold;
+}

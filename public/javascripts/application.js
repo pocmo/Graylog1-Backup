@@ -44,7 +44,7 @@ GL = new function (){
 				authenticity_token: self.token,
 				items: items
 			},function(){
-				$('input:checkbox').parents('tr').removeClass('gl-table-valide-item').filter('.checked').addClass('gl-table-valide-item');		
+        location.reload();
 			});	
 		};
 

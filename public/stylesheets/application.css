@@ -73,6 +73,14 @@
   margin-bottom: 10px;
 }
 
+.log-table-mark {
+  width: 15px;
+}
+
+.log-table-mark-row {
+  padding-right: 0px !important;
+}
+
 .log-table-date {
   width: 235px;
 }
@@ -90,11 +98,11 @@
 }
 
 #gl-table-pagination {
-  float: left;
+  float: right;
 }
 
 #gl-table-checkbox-actions {
-  float: right;
+  float: left;
 } 
 
 #filters {
