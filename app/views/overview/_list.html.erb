@@ -12,21 +12,27 @@
     <th class="log-table-severity"><%= th_link_to_order "Severity" %></th>
     <th class="log-table-message"><%= th_link_to_order "Message" %></th>
   </tr>
-<% counter = 0 %>
-<% records.each do |message| %>
-  <tr class="table-row-<%= counter % 2 == 0 ? "light" : "dark" %>">
-    <td class="log-table-mark-row"><%= check_box_tag "#{message.ID}_#{Time.now.to_i}", message.ID, false %></td>
-    <td><%= message.ReceivedAt %></td>
-    <td><%=h message.FromHost %></td>
-    <td><%= message.human_readable_severity %></td>
-    <td class="<%= is_valid_message?(message) ? "gl-table-valid-item" : "" %>">
-      <%= truncate h(message.Message), :length => 150 %>
-      <% unless @geterror_url.blank? %>
-        <%= link_to "[more]", "#{@geterror_url}?s=#{message.FromHost}&q=#{message.SysLogTag}", :target => "_blank" %>
-      <% end %>
-    </td>
+<% if records.blank? %>
+  <tr>
+    <td colspan="5">No messages found</tr>
   </tr>
-  <% counter+=1 %>
+<% else %>
+  <% counter = 0 %>
+  <% records.each do |message| %>
+    <tr class="table-row-<%= counter % 2 == 0 ? "light" : "dark" %>">
+      <td class="log-table-mark-row"><%= check_box_tag "#{message.ID}_#{Time.now.to_i}", message.ID, false %></td>
+      <td><%= message.ReceivedAt %></td>
+      <td><%=h message.FromHost %></td>
+      <td><%= message.human_readable_severity %></td>
+      <td class="<%= is_valid_message?(message) ? "gl-table-valid-item" : "" %>">
+        <%= truncate h(message.Message), :length => 150 %>
+        <% unless @geterror_url.blank? %>
+          <%= link_to "[more]", "#{@geterror_url}?s=#{message.FromHost}&q=#{message.SysLogTag}", :target => "_blank" %>
+        <% end %>
+      </td>
+    </tr>
+    <% counter+=1 %>
+  <% end %>
 <% end %>
 </table>
 
