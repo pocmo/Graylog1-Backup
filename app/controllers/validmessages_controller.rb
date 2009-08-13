@@ -20,8 +20,15 @@ class ValidmessagesController < ApplicationController
   end
 
   def destroy
-    msg = Validmessage.find_by_syslog_message_id params[:id]
-    msg.destroy
+    # We get the IDs to create in a long string separated by comma.
+    ids = params[:items].split ","
+
+    ids.each do |id|
+      next if id == "checkAll"
+      msg = Validmessage.find_by_syslog_message_id id
+      msg.destroy unless msg.blank?
+    end
+
     render :text => nil
   end
 end

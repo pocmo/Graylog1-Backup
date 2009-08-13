@@ -5,7 +5,7 @@
 <table id="gl-table">
   <tr>
     <th class="log-table-mark">
-      <input type="checkbox" data-action="checkAll" value="checkAll" />
+      <input type="checkbox" data-action="checkAll" value="checkAll" id="gl-check-all-box_<%= Time.now.to_i %>"/>
     </th>
     <th class="log-table-date"><%= th_link_to_order "Date" %></th>
     <th class="log-table-host"><%= th_link_to_order "Host" %></th>

@@ -1,6 +1,7 @@
 <div id="gl-table-checkbox-actions">
   Actions: <%= link_to "Delete", { }, "data-action" => "delete" %>,
-           <%= link_to "Valid", { },  "data-action" => "markAsValid" %>
+           <%= link_to "Valid", { },  "data-action" => "markAsValid" %>,
+           <%= link_to "Invalid", { },  "data-action" => "markAsInvalid" %>
 </div>
 <div id="gl-table-pagination">
   <%= will_paginate records %>

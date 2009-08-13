@@ -37,7 +37,22 @@ GL = new function (){
 	};
 	
 	this.markAsValidClick = function() {
-		var url = this.checked ? "/validmessages/destroy/" : '/validmessages/create/';		
+		var url = '/validmessages/create/';		
+		var items = serializeCheckboxes();
+		if (items) {
+			$.post(url, {
+				authenticity_token: self.token,
+				items: items
+			},function(){
+        location.reload();
+			});	
+		};
+
+		return false;
+	};
+
+	this.markAsInvalidClick = function() {
+		var url = "/validmessages/destroy/";		
 		var items = serializeCheckboxes();
 		if (items) {
 			$.post(url, {
