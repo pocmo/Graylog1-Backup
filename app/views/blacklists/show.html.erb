@@ -1,0 +1,7 @@
+<h1>Blacklist &raquo;<%= @blacklist.name %>&laquo;</h1>
+
+<% form_for @new_term, :url => { :controller => "blacklistterms", :action => "create" } do |f| %>
+  <%= f.label :message, "New term:" %>
+  <%= f.text_field :message %>
+  <%= submit_tag "Add" %>
+<% end %>

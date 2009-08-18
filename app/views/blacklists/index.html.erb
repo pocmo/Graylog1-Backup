@@ -1,0 +1,20 @@
+<h1>Blacklist</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+  </tr>
+
+  <% @blacklists.each do |blacklist| %>
+    <tr>
+      <td><%= link_to h(blacklist.name), { :action => "show", :id => blacklist.id } %></td>
+    </tr>
+  <% end %>
+
+</table>
+
+<% form_for @new_blacklist, :url => { :action => "create" } do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= submit_tag "Create blacklist" %>
+<% end %>
