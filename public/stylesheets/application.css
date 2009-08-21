@@ -65,12 +65,21 @@
 }
 
 #content {
-  margin-left: 5px;
-  margin-right: 5px;
+  background-color: #FFFFFF;
+  padding-top: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 #new-messages {
   margin-bottom: 10px;
+}
+
+#gl-table {
+  font-size: 11px;
 }
 
 .log-table-mark {
@@ -94,7 +103,9 @@
 }
 
 #gl-table-top {
-  margin-top: 10px;
+  font-size: 11px;
+  padding-left: 8px;
+  margin-top: 15px;
 }
 
 #gl-table-pagination {
@@ -107,6 +118,15 @@
 
 #filters {
   margin-bottom: 15px;
+}
+
+#filters label {
+  margin-left: 5px;
+}
+
+input, select {
+  border: 1px solid #CCCCCC;
+  font-size: 11px;
 }
 
 #new-category-from-filter {

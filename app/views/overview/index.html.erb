@@ -8,19 +8,19 @@
 
 <div id="filters">
   <% form_tag "/", :method => "GET" do %>
-    <%= label_tag "filter_host", "Host" %>
+    <%= label_tag "filter_host", "Host:" %>
     <%= text_field :filter, :host, :size => 10, :value => @filter_strings["host"] %>
 
-    <%= label_tag "filter_message", "Message" %>
+    <%= label_tag "filter_message", "Message:" %>
     <%= text_field :filter, :message, :value => @filter_strings["message"] %>
     
-    <%= label_tag "filter_severity", "Severity" %>
+    <%= label_tag "filter_severity", "Severity:" %>
     <%= select :filter, :severity, @severity_options %>
     
-    <%= label_tag "filter_date_start", "Date start" %>
+    <%= label_tag "filter_date_start", "Date start:" %>
     <%= text_field :filter, :date_start, :size => 15, :value => @filter_strings["date_start"] %>
 
-    <%= label_tag "filter_date_end", "Date end" %>
+    <%= label_tag "filter_date_end", "Date end:" %>
     <%= text_field :filter, :date_end, :size => 15, :value => @filter_strings["date_end"] %>
 
     <%= submit_tag "Filter" %>
