@@ -7,7 +7,7 @@
 <% end %>
 
 <div id="filters">
-  <% form_tag "/" do %>
+  <% form_tag "/", :method => "GET" do %>
     <%= label_tag "filter_host", "Host" %>
     <%= text_field :filter, :host, :size => 10, :value => @filter_strings["host"] %>
 
