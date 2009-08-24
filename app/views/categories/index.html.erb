@@ -11,7 +11,6 @@
       <th>Severity</th>
       <th>Date start</th>
       <th>Date end</th>
-      <th>Number of messages</th>
       <% unless current_user.blank? %>
         <th>Favorite</th>
       <% end %>
@@ -25,7 +24,6 @@
         <td><%= category.filter_severity.blank? ? "<i>None</i>" : "&gt;= #{h(category.filter_severity)}" %></td>
         <td><%= category.filter_date_start.blank? ? "<i>None</i>" : h(category.filter_date_start) %></td>
         <td><%= category.filter_date_end.blank? ? "<i>None</i>" : h(category.filter_date_end) %></td>
-        <td><%= @number_of_messages[category.id] %></td>
         <% unless current_user.blank? %>
           <td>
             <input type="checkbox" value="<%= category.id %>" <%= is_favorited_category?(category.id, current_user.id) %> data-action="addFavorite" />

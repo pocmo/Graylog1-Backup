@@ -16,8 +16,6 @@ class CategoriesController < ApplicationController
 
       # Build conditions from possibly set filter options
       conditions = build_conditions_from_filter_parameters @filter_strings["host"], @filter_strings["message"], @filter_strings["severity"], @filter_strings["date_start"], @filter_strings["date_end"] 
-      
-      @number_of_messages[cat.id] = Logentry.count :conditions => conditions
     end
   end
 
