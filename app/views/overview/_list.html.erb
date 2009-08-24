@@ -1,40 +1,42 @@
-<div id="gl-table-top">
-  <%= render :partial => "overview/pager", :locals => { :records => records } %>
-</div>
-
-<table id="gl-table">
-  <tr>
-    <th class="log-table-mark">
-      <input type="checkbox" data-action="checkAll" value="checkAll" id="gl-check-all-box_<%= Time.now.to_i %>"/>
-    </th>
-    <th class="log-table-date"><%= th_link_to_order "Date" %></th>
-    <th class="log-table-host"><%= th_link_to_order "Host" %></th>
-    <th class="log-table-severity"><%= th_link_to_order "Severity" %></th>
-    <th class="log-table-message"><%= th_link_to_order "Message" %></th>
-  </tr>
-<% if records.blank? %>
-  <tr>
-    <td colspan="5">No messages found</tr>
-  </tr>
-<% else %>
-  <% counter = 0 %>
-  <% records.each do |message| %>
-    <tr class="table-row-<%= counter % 2 == 0 ? "light" : "dark" %>">
-      <td class="log-table-mark-row"><%= check_box_tag "#{message.ID}_#{Time.now.to_i}", message.ID, false %></td>
-      <td><%= message.ReceivedAt %></td>
-      <td><%=h message.FromHost %></td>
-      <td><%= message.human_readable_severity %></td>
-      <td class="<%= is_valid_message?(message) ? "gl-table-valid-item" : "" %>">
-        <%= truncate h(message.Message), :length => 150 %>
-        <% unless @geterror_url.blank? %>
-          <%= link_to "[more]", "#{@geterror_url}?s=#{message.FromHost}&q=#{message.SysLogTag}", :target => "_blank" %>
-        <% end %>
-      </td>
-    </tr>
-    <% counter+=1 %>
-  <% end %>
+<% unless records.blank? %>
+  <div id="gl-table-top">
+    <%= render :partial => "overview/pager", :locals => { :records => records } %>
+  </div>
 <% end %>
-</table>
+
+<% if records.blank? %>
+  <div id="gl-no-records">
+    No messages found.
+  </div>
+<% else %>
+  <table id="gl-table">
+    <tr>
+      <th class="log-table-mark">
+        <input type="checkbox" data-action="checkAll" value="checkAll" id="gl-check-all-box_<%= Time.now.to_i %>"/>
+      </th>
+      <th class="log-table-date"><%= th_link_to_order "Date" %></th>
+      <th class="log-table-host"><%= th_link_to_order "Host" %></th>
+      <th class="log-table-severity"><%= th_link_to_order "Severity" %></th>
+      <th class="log-table-message"><%= th_link_to_order "Message" %></th>
+    </tr>
+    <% counter = 0 %>
+    <% records.each do |message| %>
+      <tr class="table-row-<%= counter % 2 == 0 ? "light" : "dark" %>">
+        <td class="log-table-mark-row"><%= check_box_tag "#{message.ID}_#{Time.now.to_i}", message.ID, false %></td>
+        <td><%= message.ReceivedAt %></td>
+        <td><%=h message.FromHost %></td>
+        <td><%= message.human_readable_severity %></td>
+        <td class="<%= is_valid_message?(message) ? "gl-table-valid-item" : "" %>">
+          <%= truncate h(message.Message), :length => 150 %>
+          <% unless @geterror_url.blank? %>
+            <%= link_to "[more]", "#{@geterror_url}?s=#{message.FromHost}&q=#{message.SysLogTag}", :target => "_blank" %>
+          <% end %>
+        </td>
+      </tr>
+      <% counter+=1 %>
+    <% end %>
+  </table>
+<% end %>
 
 <% if records.count > 0 and !@filter_strings.blank? %>
   <div id="delete-all">
@@ -46,9 +48,10 @@
   </div>
 <% end %>
 
-<div id="gl-table-bottom">
-  <%= render :partial => "overview/pager", :locals => { :records => records } %>
-  <br style="clear: both;" />
-</div>
+<% unless records.blank? %>
+  <div id="gl-table-bottom">
+    <%= render :partial => "overview/pager", :locals => { :records => records } %>
+  </div>
+<% end %>
 
 <br style="clear: both;" />

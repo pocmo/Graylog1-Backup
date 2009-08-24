@@ -110,6 +110,8 @@
 }
 
 #gl-table-bottom {
+  font-size: 11px;
+  padding-left: 8px;
   margin-top: 15px;
 }
 
@@ -181,4 +183,9 @@ input, select {
   float: left;
   margin-left: 7px;
   padding-right: 10px;
+}
+
+#gl-no-records {
+  text-align: center;
+  font-weight: bold;
 }
