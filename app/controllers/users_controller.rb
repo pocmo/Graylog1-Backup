@@ -1,10 +1,5 @@
 class UsersController < ApplicationController
  
-  if User.count == 0
-    layout "login"
-    skip_before_filter :block_unauthenticated
-  end
-
   def new
     @user = User.new
   end

@@ -1,10 +1,6 @@
 class SessionsController < ApplicationController
 
-  layout "login"
-
   def new
-    # Redirect user to the first user form if this is an initial installation
-    redirect_to :controller => "users", :action => "new" if User.count == 0
   end
 
   def create
