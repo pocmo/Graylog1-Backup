@@ -1498,6 +1498,20 @@ module ActiveRecord #:nodoc:
 
         "(#{segments.join(') AND (')})" unless segments.empty?
       end
+      
+      # XXX: Merges conditions so that the result is a valid +condition+
+      def merge_conditions_with_or(*conditions)
+        segments = []
+
+        conditions.each do |condition|
+          unless condition.blank?
+            sql = sanitize_sql(condition)
+            segments << sql unless sql.blank?
+          end
+        end
+
+        "(#{segments.join(') OR (')})" unless segments.empty?
+      end
 
       private
         def find_initial(options)

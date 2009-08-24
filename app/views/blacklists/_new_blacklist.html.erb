@@ -1,0 +1,5 @@
+<% form_for @new_blacklist, :url => { :action => "create" } do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= submit_tag "Create blacklist" %>
+<% end %>

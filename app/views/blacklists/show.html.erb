@@ -1,7 +1,28 @@
 <h1>Blacklist &raquo;<%= @blacklist.name %>&laquo;</h1>
 
+<%= render :partial => "overview/list", :locals => { :records => @messages, :is_valid_messages_view => false } %>
+
+<h2>Filtering the following terms:</h2>
+<ul>
+  <% if @blacklist.blacklistterms.blank? %>
+    <li>No terms defined</li>
+  <% else %>
+    <% @blacklist.blacklistterms.each do |term| %>
+      <li>
+        <%=h term.message %>
+        <%= link_to "[x]", { :controller => "blacklistterms", :action => "destroy", :id => term.id, :blacklist_id => @blacklist.id } %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>
+
 <% form_for @new_term, :url => { :controller => "blacklistterms", :action => "create" } do |f| %>
+  <%= f.hidden_field :blacklist_id, :value => @blacklist.id %>
   <%= f.label :message, "New term:" %>
   <%= f.text_field :message %>
   <%= submit_tag "Add" %>
 <% end %>
+
+<p>
+  <%= link_to "Delete this blacklist", { :action => "destroy", :id => @blacklist.id } %>
+</p>

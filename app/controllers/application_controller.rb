@@ -33,14 +33,24 @@ class ApplicationController < ActionController::Base
     return Logentry.merge_conditions *conditions
   end
 
-  def build_conditions_from_overview_blacklist
+  def build_conditions_from_blacklist
     conditions = Array.new
-    ovbl_terms = Blacklistterm.find :all
-    ovbl_terms.each do |term|
+    bl_terms = Blacklistterm.find :all
+    bl_terms.each do |term|
       conditions << [ "Message NOT LIKE ?", "%#{term.message}%" ] unless term.message.blank?
     end
 
     return Logentry.merge_conditions *conditions
+  end
+  
+  def build_conditions_for_blacklist blacklist_id
+    conditions = Array.new
+    bl_terms = Blacklistterm.find_all_by_blacklist_id blacklist_id
+    bl_terms.each do |term|
+      conditions << [ "Message LIKE ?", "%#{term.message}%" ] unless term.message.blank?
+    end
+
+    return Logentry.merge_conditions_with_or *conditions
   end
 
   private
@@ -91,6 +101,11 @@ class ApplicationController < ActionController::Base
       end
     end
     return order
+  end
+
+  def no_layout_for_feed
+    return nil if params[:feed] == "true"
+    return "application"
   end
 
 end

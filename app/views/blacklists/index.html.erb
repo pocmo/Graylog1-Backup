@@ -1,20 +1,28 @@
 <h1>Blacklist</h1>
 
+<div id="gl-blacklists-new-top">
+  <%= render :partial => "new_blacklist", :locals => { :new_blacklist => @new_blacklist } %>
+</div>
+
 <table>
   <tr>
     <th>Title</th>
+    <th>Filters</th>
   </tr>
 
   <% @blacklists.each do |blacklist| %>
     <tr>
       <td><%= link_to h(blacklist.name), { :action => "show", :id => blacklist.id } %></td>
+      <% if blacklist.blacklistterms.blank? %>
+        <td>Filtering nothing</td>
+      <% else %>
+        <td>Filtering <%= blacklist.blacklistterms.map{|t| t.message }.to_sentence %></td>
+      <% end %>
     </tr>
   <% end %>
 
 </table>
 
-<% form_for @new_blacklist, :url => { :action => "create" } do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <%= submit_tag "Create blacklist" %>
-<% end %>
+<div id="gl-blacklists-new-bottom">
+  <%= render :partial => "new_blacklist", :locals => { :new_blacklist => @new_blacklist } %>
+</div>

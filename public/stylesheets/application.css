@@ -186,3 +186,11 @@ input, select {
   text-align: center;
   font-weight: bold;
 }
+
+#gl-blacklists-new-top {
+  margin-bottom: 5px;
+}
+
+#gl-blacklists-new-bottom {
+  margin-top: 15px;
+}

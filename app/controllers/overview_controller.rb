@@ -29,10 +29,10 @@ class OverviewController < ApplicationController
       filter_conditions = build_conditions_from_filter_parameters @filter_strings["host"], @filter_strings["message"], @filter_strings["severity"], @filter_strings["date_start"], @filter_strings["date_end"] 
     end    
    
-    # Overview blacklist
-    overview_blacklist_conditions = build_conditions_from_overview_blacklist
+    # Blacklist
+    blacklist_conditions = build_conditions_from_blacklist
 
-    conditions = Logentry.merge_conditions filter_conditions, overview_blacklist_conditions
+    conditions = Logentry.merge_conditions filter_conditions, blacklist_conditions
 
     # Ordering from table heads
     order = build_order_string params[:order], params[:direction]
@@ -90,13 +90,6 @@ class OverviewController < ApplicationController
       @messages = Logentry.paginate :page => params[:page], :order => order, :conditions => conditions, :group => group_string
       @new_category = Category.new
     end
-  end
-
-  private
-
-  def no_layout_for_feed
-    return nil if params[:feed] == "true"
-    return "application"
   end
 
 end

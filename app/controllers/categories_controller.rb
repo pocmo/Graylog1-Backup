@@ -31,8 +31,13 @@ class CategoriesController < ApplicationController
     @category.filter_date_end.blank? ? @filter_strings["date_end"] = "" : @filter_strings["date_end"] = @category.filter_date_end
 
     # Build conditions from possibly set filter options
-    conditions = build_conditions_from_filter_parameters @filter_strings["host"], @filter_strings["message"], @filter_strings["severity"], @filter_strings["date_start"], @filter_strings["date_end"] 
+    filter_conditions = build_conditions_from_filter_parameters @filter_strings["host"], @filter_strings["message"], @filter_strings["severity"], @filter_strings["date_start"], @filter_strings["date_end"] 
    
+    # Blacklist
+    blacklist_conditions = build_conditions_from_blacklist
+    
+    conditions = Logentry.merge_conditions filter_conditions, blacklist_conditions
+
     # Ordering from table heads
     order = build_order_string params[:order], params[:direction]
     
@@ -99,13 +104,6 @@ class CategoriesController < ApplicationController
     favorite = Favorite.find_by_category_id_and_user_id params[:id], current_user.id
     favorite.destroy
     render :text => nil
-  end
-
-  private
-
-  def no_layout_for_feed
-    return nil if params[:feed] == "true"
-    return "application"
   end
 
 end

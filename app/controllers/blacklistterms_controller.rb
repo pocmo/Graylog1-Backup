@@ -6,7 +6,7 @@ class BlacklisttermsController < ApplicationController
     else
       flash[:error] = "Could not add term to overview blacklist!"
     end
-    redirect_to :controller => "settings"
+    redirect_to :controller => "blacklists", :action => "show", :id => params[:blacklistterm][:blacklist_id]
   end
   
   def destroy
@@ -16,6 +16,6 @@ class BlacklisttermsController < ApplicationController
     else
       flash[:error] = "Could not remove term from overview blacklist."
     end
-    redirect_to :controller => "settings"
+    redirect_to :controller => "blacklists", :action => "show", :id => params[:blacklist_id]
   end
 end
