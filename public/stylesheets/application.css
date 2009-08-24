@@ -163,6 +163,7 @@ input, select {
 }
 
 #favorites {
+  font-size: 11px;
   margin: 0px;
   padding: 0px;
   margin-bottom: 10px;
@@ -175,7 +176,9 @@ input, select {
 }
 
 #favorites-title {
+  font-size: 11px;
   font-weight: bold;
   float: left;
+  margin-left: 7px;
   padding-right: 10px;
 }
