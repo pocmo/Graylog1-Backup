@@ -1,3 +1,9 @@
 This is Graylog. A Ruby on Rails based web interface to rsyslog.
 
 It is being developed by Jimdo - http://www.jimdo.com/
+
+=== License ===
+GNU General Public License Version 3 (GPLv3)
+
+=== INSTALLATION ===
+http://wiki.github.com/lennartkoopmann/Graylog/installation
