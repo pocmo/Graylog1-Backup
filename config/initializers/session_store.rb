@@ -6,7 +6,8 @@
 # no regular words or you'll be exposed to dictionary attacks.
 ActionController::Base.session = {
   :key         => '_graylog_session',
-  :secret      => 'e4eaac5fc1b0d2d5b0ba581e35ed33f1ba9dad6098414632d9044fe69fa32d31dfddfed1aaadbffa85212567b3766440459a65492b5a68179aa936057658b1aa'
+  :secret      => 'e4eaac5fc1b0d2d5b0ba581e35ed33f1ba9dad6098414632d9044fe69fa32d31dfddfed1aaadbffa85212567b3766440459a65492b5a68179aa936057658b1aa',
+  :expire_after => 31.days
 }
 
 # Use the database for sessions instead of the cookie-based default,
