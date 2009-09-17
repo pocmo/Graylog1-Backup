@@ -30,7 +30,7 @@
           <div class="gl-message" id="gl-message-<%= message.ID %>">
             <%= truncate h(message.Message), :length => 150 %>
             <% if message.Message.length >= 150 %>
-              <%= link_to "[more]", "#", :onclick => "$('#gl-message-full-#{message.ID}').fadeIn(); $('#gl-message-#{message.ID}').hide();" %>
+              <%= link_to "[more]", "#", :onclick => "$('#gl-message-full-#{message.ID}').fadeIn(); $('#gl-message-#{message.ID}').hide(); return false;" %>
             <% end %>
           </div>
           <div class="gl-message-hidden-part" id="gl-message-full-<%= message.ID %>">
