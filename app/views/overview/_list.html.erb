@@ -27,10 +27,18 @@
         <td><%=h message.FromHost %></td>
         <td><%= message.human_readable_severity %></td>
         <td class="<%= is_valid_message?(message) ? "gl-table-valid-item" : "" %>">
-          <%= truncate h(message.Message), :length => 150 %>
-          <% unless @geterror_url.blank? %>
-            <%= link_to "[more]", "#{@geterror_url}?s=#{message.FromHost}&q=#{message.SysLogTag}", :target => "_blank" %>
-          <% end %>
+          <div class="gl-message" id="gl-message-<%= message.ID %>">
+            <%= truncate h(message.Message), :length => 150 %>
+            <% if message.Message.length >= 150 %>
+              <%= link_to "[more]", "#", :onclick => "$('#gl-message-full-#{message.ID}').fadeIn(); $('#gl-message-#{message.ID}').hide();" %>
+            <% end %>
+          </div>
+          <div class="gl-message-hidden-part" id="gl-message-full-<%= message.ID %>">
+            <% unless @geterror_url.blank? %>
+              <%=h message.Message %>
+              <%= link_to "[full]", "#{@geterror_url}?s=#{message.FromHost}&q=#{message.SysLogTag}", :target => "_blank" %>
+            <% end %>
+          </div>
         </td>
       </tr>
       <% counter+=1 %>

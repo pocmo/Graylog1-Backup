@@ -194,3 +194,11 @@ input, select {
 #gl-blacklists-new-bottom {
   margin-top: 15px;
 }
+
+.gl-message {
+  float: left;
+}
+
+.gl-message-hidden-part {
+  display: none;
+}
