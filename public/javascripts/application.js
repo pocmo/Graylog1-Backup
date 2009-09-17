@@ -31,6 +31,7 @@ GL = new function (){
 	};
 
 	this.addFavoriteClick = function() {
+    alert(this.value);
 		var url = this.checked ? "/categories/favorite/" : '/categories/unfavorite/';		
 		url+=this.value;
 		$.get(url);
@@ -65,6 +66,11 @@ GL = new function (){
 
 		return false;
 	};
+
+  this.showFullMessageClick = function(e, value) {
+    $('#gl-message-' + value).hide();
+    $('#gl-message-full-' + value).fadeIn();
+  }
 
 	function serializeCheckboxes() {
 		var data = $('input:checkbox:checked').map(function(){
