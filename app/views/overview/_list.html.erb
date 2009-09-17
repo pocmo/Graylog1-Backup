@@ -30,7 +30,7 @@
           <div class="gl-message" id="gl-message-<%= message.ID %>">
             <%= truncate h(message.Message), :length => 150 %>
             <% if message.Message.length >= 150 %>
-              <a href="#" data-params="<%= message.ID %>" data-action="showFullMessage" onclick="return false;">[more]</a>
+              <a href="#" data-params="<%= message.ID %>" data-action="showFullMessage">[more]</a>
             <% end %>
           </div>
           <div class="gl-message-hidden-part" id="gl-message-full-<%= message.ID %>">
