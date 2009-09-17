@@ -23,6 +23,7 @@ Rails::Initializer.run do |config|
   config.gem "mysql"
   config.gem "rack"
   config.gem "rails"
+  config.gem "chronic"
   config.gem "rake"
 
   # Only load the plugins named here, in the order given (default is alphabetical).

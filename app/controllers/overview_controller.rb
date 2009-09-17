@@ -87,7 +87,9 @@ class OverviewController < ApplicationController
         @favorites = Favorite.find_all_by_user_id current_user.id
         @recent_messages_count = Logentry.recent current_user
       end
-      @messages = Logentry.paginate :page => params[:page], :order => order, :conditions => conditions, :group => group_string
+      @messages = Ultrasphinx::Search.new :query => "POST OR JAVASCRIPT", :limit => 1000
+      @messages.run
+      #@messages = Logentry.paginate :page => params[:page], :order => order, :conditions => conditions, :group => group_string
       @new_category = Category.new
     end
   end

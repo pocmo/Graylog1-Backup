@@ -1,6 +1,8 @@
 class Logentry < ActiveRecord::Base
-  
+
   include AuthenticatedSystem
+  
+  is_indexed :fields => ['ReceivedAt', 'Facility', 'Priority', 'FromHost', 'Message']
 
   def human_readable_severity
     case self.Priority
@@ -21,11 +23,11 @@ class Logentry < ActiveRecord::Base
   end
 
   def self.table_name
-    "#{SYSLOG_DB}.SystemEvents"
+    "Syslog.SystemEvents"
   end
 
   def self.per_page
     100
   end
-
+  
 end
