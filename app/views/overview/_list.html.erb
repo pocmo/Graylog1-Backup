@@ -31,8 +31,8 @@
             <%= truncate h(message.Message), :length => 150 %>
             <% if message.Message.length >= 150 %>
               <a href="#" data-params="<%= message.ID %>" data-action="showFullMessage">[more]</a>
-              <%= link_to "[full]", "#{@geterror_url}?s=#{message.FromHost}&q=#{message.SysLogTag}", :target => "_blank" %>
             <% end %>
+            <%= link_to "[full]", "#{@geterror_url}?s=#{message.FromHost}&q=#{message.SysLogTag}", :target => "_blank" %>
           </div>
           <div class="gl-message-hidden-part" id="gl-message-full-<%= message.ID %>">
             <% unless @geterror_url.blank? %>
