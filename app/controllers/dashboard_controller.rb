@@ -2,13 +2,15 @@ class DashboardController < ApplicationController
 
   include Amatch
 
-  SCAN_NUMBER_OF_MESSAGES = 50
+  TIMESPAN_MINUTES = 10
   MINIMUM_LEVENSHTEIN_MATCH = 15
-  MINIMUM_MATCHES = 5
+  MINIMUM_MATCHES = 100
 
   def index
     blacklist_conditions = build_conditions_from_blacklist
-    messages = Logentry.find :all, :order => "ReceivedAt DESC", :conditions => blacklist_conditions, :limit => SCAN_NUMBER_OF_MESSAGES
+    timespan_condition = [ "ReceivedAt > ?", Time.at(TIMESPAN_MINUTES.minutes.ago) ]
+    conditions = Logentry.merge_conditions blacklist_conditions, timespan_condition
+    messages = Logentry.find :all, :order => "ReceivedAt DESC", :conditions => conditions
     @alert_messages = get_dashboard_alarms messages
   end
 
