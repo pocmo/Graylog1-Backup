@@ -1,0 +1,7 @@
+<h1>Dashboard</h1>
+
+<ul>
+<% @alert_messages.each do |message| %>
+    <li><%=h message[:message] %> (<%=h message[:matches] %>)</li>
+<% end %>
+</ul>
