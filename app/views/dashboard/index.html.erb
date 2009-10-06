@@ -1,3 +1,3 @@
 <div id="dashboard-main" style="font-size: <%=h @fontsize %>px;" class="dashboard-status-<%= @alert ? "alert" : "normal" %>">
-    <%=h @new_messages %> messages in the last <%=h @timespan %> minutes
+    <%=h pluralize @new_messages, "message" %> in the last <%=h @timespan %> minutes
 </div>
