@@ -202,3 +202,17 @@ input, select {
 .gl-message-hidden-part {
   display: none;
 }
+
+#dashboard-main {
+  text-align: center;
+  padding: 10px;
+}
+
+.dashboard-status-alert {
+    background-image: url(/images/errorbg-blink.gif);
+    background-repeat: repeat;
+}
+
+.dashboard-status-normal {
+    background-color: #00b304;
+}

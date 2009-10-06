@@ -18,3 +18,20 @@ Graylog will append the following parameters: <i>?s=[FromHost]&amp;q=[SysLogTag]
   <%= f.text_field :base_url, :value => @base_url %>
   <%= submit_tag "Save" %>
 <% end %>
+
+<h2>Dashboard monitoring</h2>
+<p>This URL is used as base URL in the RSS feeds.</p>
+<% form_for @settings, :url => { :action => "update" } do |f| %>
+  <%= f.label :dashboard_timespan, "<strong>Timespan:</strong>" %>
+  <%= f.text_field :dashboard_timespan, :value => @dashboard_timespan %>
+  <%= f.label :dashboard_messages, "<strong>Number of messages:</strong>" %>
+  <%= f.text_field :dashboard_messages, :value => @dashboard_messages %>
+  <%= submit_tag "Save" %>
+<% end %>
+
+<h2>Dashboard layout</h2>
+<% form_for @settings, :url => { :action => "update" } do |f| %>
+  <%= f.label :dashboard_font_size, "<strong>Font size:</strong>" %>
+  <%= f.text_field :dashboard_font_size, :value => @dashboard_font_size, :size => 3 %> px
+  <%= submit_tag "Save" %>
+<% end %>

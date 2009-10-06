@@ -1,7 +1,3 @@
-<h1>Dashboard</h1>
-
-<ul>
-<% @alert_messages.each do |message| %>
-    <li><%=h message[:message] %> (<%=h message[:matches] %>)</li>
-<% end %>
-</ul>
+<div id="dashboard-main" style="font-size: <%=h @fontsize %>px;" class="dashboard-status-<%= @alert ? "alert" : "normal" %>">
+    <%=h @new_messages %> messages in the last <%=h @timespan %> minutes
+</div>

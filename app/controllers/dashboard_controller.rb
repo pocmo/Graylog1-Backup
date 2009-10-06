@@ -1,61 +1,21 @@
 class DashboardController < ApplicationController
 
-  include Amatch
-
-  TIMESPAN_MINUTES = 10
-  MINIMUM_LEVENSHTEIN_MATCH = 15
-  MINIMUM_MATCHES = 10
-
   def index
-
+    if Setting.last.blank?
+      @timespan = 10
+      @number_of_allowed_messages = 100
+      @fontsize = 50
+    else
+      Setting.last.dashboard_timespan.blank? ? @timespan = 10 : @timespan = Setting.last.dashboard_timespan.to_i
+      Setting.last.dashboard_messages.blank? ? @number_of_allowed_messages = 100 : @number_of_allowed_messages = Setting.last.dashboard_messages.to_i
+      Setting.last.dashboard_font_size.blank? ? @fontsize = 50 : @fontsize = Setting.last.dashboard_font_size.to_i
+    end
+    blacklist_conditions = build_conditions_from_blacklist
+    timespan_condition = [ "ReceivedAt > ?", @timespan.minutes.ago]
+    conditions = Logentry.merge_conditions blacklist_conditions, timespan_condition
+    @new_messages = Logentry.count :conditions => conditions
+    
+    @alert = true
   end
-
-  private
-  
-##### USE MEMCACHE
-#  def get_dashboard_alarms messages
-#    require 'digest/md5'
-#    results = Array.new
-#
-#    cache = Hash.new
-#
-#    messages.each do |message|
-#      matches = 0
-#      last_matched_message = String.new
-#      l = Levenshtein.new message.Message
-#      
-#      i = 0
-#      messages.each do |message|
-#        # Don't scan yourself.
-#        if i == 0
-#          i += 1
-#          next
-#        end
-#        
-#        messages.each do |message|
-#            message_md5 = Digest::MD5.hexdigest message.Message
-#            if cache[message_md5] === i
-#              # Cache miss.
-#              levenshtein = l.match(message.Message)
-#              cache[message_md5] = levenshtein
-#              res = levenshtein
-#            end
-#        end
-#
-#        if res <= MINIMUM_LEVENSHTEIN_MATCH
-#          matches += 1
-#          last_matched_message = message.Message
-#        end
-#        i += 1
-#      end
-#      
-#      if matches > MINIMUM_MATCHES
-#        results << {:message => last_matched_message, :matches => matches }
-#      end
-#    end
-#    
-#    # Remove double results
-#    return results.uniq
-#  end
 
 end
