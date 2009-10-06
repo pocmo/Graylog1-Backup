@@ -2,6 +2,17 @@ class Logentry < ActiveRecord::Base
   
   include AuthenticatedSystem
 
+  def self.get_new_messages timespan, blacklist_conditions
+    timespan_condition = [ "ReceivedAt > ?", timespan.minutes.ago]
+    conditions = self.merge_conditions blacklist_conditions, timespan_condition
+    return self.count :conditions => conditions
+  end
+  
+  def self.alert? number_of_allowed_messages, new_messages
+    return true if new_messages > number_of_allowed_messages
+    return false
+  end
+
   def human_readable_severity
     case self.Priority
       when 0: "Emergency"

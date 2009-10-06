@@ -34,13 +34,7 @@ class ApplicationController < ActionController::Base
   end
 
   def build_conditions_from_blacklist
-    conditions = Array.new
-    bl_terms = Blacklistterm.find :all
-    bl_terms.each do |term|
-      conditions << [ "Message NOT LIKE ?", "%#{term.message}%" ] unless term.message.blank?
-    end
-
-    return Logentry.merge_conditions *conditions
+    return Blacklist.build_conditions
   end
   
   def build_conditions_for_blacklist blacklist_id
