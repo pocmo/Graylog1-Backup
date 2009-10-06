@@ -107,5 +107,15 @@ class ApplicationController < ActionController::Base
     return nil if params[:feed] == "true"
     return "application"
   end
+  
+  private
+  def cache(key)
+    unless output = CACHE.get(key)
+      output = yield
+      CACHE.set(key, output, 1.hour)
+    end
+    return output
+  end
+
 
 end
