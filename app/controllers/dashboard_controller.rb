@@ -15,7 +15,18 @@ class DashboardController < ApplicationController
     conditions = Logentry.merge_conditions blacklist_conditions, timespan_condition
     @new_messages = Logentry.count :conditions => conditions
     
-    @alert = true
+    @alert = alert? @number_of_allowed_messages, @new_messages
+  end
+  
+  def nagioscheck
+    render :text => "okay" if !alert?
+    render :text => "alert"
+  end
+  
+  private
+  def alert? number_of_allowed_messages, new_messages
+    true if new_messages > number_of_allowed_messages
+    false
   end
 
 end
