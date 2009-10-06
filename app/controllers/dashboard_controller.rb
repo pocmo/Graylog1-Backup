@@ -19,7 +19,7 @@ class DashboardController < ApplicationController
   end
   
   def nagioscheck
-    render :text => "okay" if !alert?
+    render :text => "okay" if !alert? @number_of_allowed_messages, @new_messages
     render :text => "alert"
   end
   
