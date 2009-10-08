@@ -10,12 +10,16 @@ class DashboardController < ApplicationController
     @dashboard_settings = Setting.get_dashboard_settings
     @new_messages = Logentry.get_new_messages @dashboard_settings["timespan"], build_conditions_from_blacklist
     
-    if !Logentry.alert? @dashboard_settings["number_of_allowed_messages"], @new_messages
-      render :text => "okay"
-      return
+    unless params[:simple].blank?
+      if !Logentry.alert? @dashboard_settings["number_of_allowed_messages"], @new_messages
+        render :text => "okay"
+        return
+      end
+      
+      render :text => "alert"
+    else
+      render :text => @new_messages
     end
-    
-    render :text => "alert"
   end
 
 end
