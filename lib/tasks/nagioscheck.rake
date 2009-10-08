@@ -5,10 +5,12 @@ namespace :nagios do
     @new_messages = Logentry.get_new_messages @dashboard_settings["timespan"], Blacklist.build_conditions
     
     if !Logentry.alert? @dashboard_settings["number_of_allowed_messages"], @new_messages
-      puts "okay"
+      puts "status: okay"
     else
-      puts "alert"
+      puts "status: alert"
     end
+    
+    puts @new_messages
 
   end
 end
