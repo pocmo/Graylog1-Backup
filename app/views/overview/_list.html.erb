@@ -35,8 +35,8 @@
             <%= link_to "[full]", "#{@geterror_url}?s=#{message.FromHost}&q=#{message.SysLogTag}", :target => "_blank" %>
           </div>
           <div class="gl-message-hidden-part" id="gl-message-full-<%= message.ID %>">
+            <%=h message.Message %>
             <% unless @geterror_url.blank? %>
-              <%=h message.Message %>
               <%= link_to "[full]", "#{@geterror_url}?s=#{message.FromHost}&q=#{message.SysLogTag}", :target => "_blank" %>
             <% end %>
           </div>
