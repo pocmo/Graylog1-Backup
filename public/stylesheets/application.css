@@ -10,11 +10,12 @@
 }
 
 #top-title {
-  font-size: 25px;
   margin-left: 10px;
 }
 
 #top-user {
+  position: relative;
+  top: -5px;
   font-size: 10px;
 }
 

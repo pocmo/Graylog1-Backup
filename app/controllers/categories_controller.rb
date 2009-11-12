@@ -17,6 +17,12 @@ class CategoriesController < ApplicationController
       # Build conditions from possibly set filter options
       conditions = build_conditions_from_filter_parameters @filter_strings["host"], @filter_strings["message"], @filter_strings["severity"], @filter_strings["date_start"], @filter_strings["date_end"] 
     end
+
+    respond_to do |format|
+      format.html
+      format.xml { render :xml => @categories.to_xml }
+    end
+
   end
 
   def show

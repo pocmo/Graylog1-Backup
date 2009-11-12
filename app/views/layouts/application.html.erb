@@ -22,7 +22,7 @@
   
 <div id="top">
   <div id="top-left">
-    <span id="top-title">Graylog</span> 
+    <%= image_tag "graylog.png", :id => "top-title" %> 
     <span id="top-user">
       <% if current_user.blank? %>
         &raquo; <%= link_to "Log in", :controller => "sessions", :action => "new" %>

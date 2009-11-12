@@ -9,7 +9,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090807161527) do
+ActiveRecord::Schema.define(:version => 20091006112114) do
+
+  create_table "blacklists", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "blacklistterms", :force => true do |t|
+    t.string   "message"
+    t.datetime "created_at"
+    t.integer  "blacklist_id", :default => 0
+  end
 
   create_table "categories", :force => true do |t|
     t.string   "title"
@@ -32,6 +44,10 @@ ActiveRecord::Schema.define(:version => 20090807161527) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "geterror_url"
+    t.string   "base_url"
+    t.string   "dashboard_timespan"
+    t.string   "dashboard_messages"
+    t.integer  "dashboard_font_size"
   end
 
   create_table "users", :force => true do |t|
@@ -48,5 +64,10 @@ ActiveRecord::Schema.define(:version => 20090807161527) do
   end
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true
+
+  create_table "validmessages", :force => true do |t|
+    t.integer  "syslog_message_id"
+    t.datetime "created_at"
+  end
 
 end
