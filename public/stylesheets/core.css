@@ -88,6 +88,10 @@ td {
   background-color: #EEEEEE;
 }
 
+.table-row-light:hover, .table-row-dark:hover {
+  background-color:#ffdddd;
+}
+
 .gl-table-valid-item {
   font-weight: bold;
 }
