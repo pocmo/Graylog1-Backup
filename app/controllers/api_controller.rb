@@ -36,4 +36,15 @@ class ApiController < ApplicationController
     render :text => logmessages.to_json
   end
   
+  def getdashboard
+    begin
+      @dashboard_settings = Setting.get_dashboard_settings
+      @new_messages = Logentry.get_new_messages @dashboard_settings["timespan"], build_conditions_from_blacklist
+      json = { "status" => "success", "messages" => @new_messages, "last_message" => Logentry.last, "timespan" => @dashboard_settings["timespan"] }
+    rescue
+      json = { "status" => "error" }
+    end
+      render :text => json.to_json
+  end
+  
 end
