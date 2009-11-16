@@ -24,7 +24,7 @@
 }
 
 #top-user a:hover {
-  color: #FF0000;
+  color: #FFFFFF;
 }
 
 #top-menu {
@@ -46,7 +46,7 @@
 }
 
 #top-menu li:hover {
-  background-color: #FF0000;
+  background-color: #FF3366;
 }
 
 #top-menu a {
@@ -54,8 +54,13 @@
   text-decoration: none;
 }
 
-.top-menu-active-link {
+#top-menu a.top-menu-active-link {
+  color: #FF3366;
   font-weight: bold;
+}
+
+#top-menu a.top-menu-active-link:hover {
+  color: #FFFFFF;
 }
 
 #top-right {
@@ -216,4 +221,13 @@ input, select {
 
 .dashboard-status-normal {
     background-color: #00b304;
+}
+
+a {
+  padding:1px;
+  color: #FF3366;
+}
+a:hover {
+  color:#ffffff;
+  background-color:#FF3366;
 }
