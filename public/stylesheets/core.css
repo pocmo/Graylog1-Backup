@@ -8,12 +8,14 @@ body {
 }
 
 a {
-  color: #9d009b;
+  padding:1px;
+  color: #FF3366;
   text-decoration: none;
 }
 
 a:hover {
-  color: #FF0000;
+  color:#ffffff;
+  background-color:#FF3366;
 }
 
 h1 {

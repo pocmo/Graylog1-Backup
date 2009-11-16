@@ -222,12 +222,3 @@ input, select {
 .dashboard-status-normal {
     background-color: #00b304;
 }
-
-a {
-  padding:1px;
-  color: #FF3366;
-}
-a:hover {
-  color:#ffffff;
-  background-color:#FF3366;
-}
