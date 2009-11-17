@@ -44,7 +44,11 @@
       <li><%= link_to "Logout", { :controller => "sessions", :action => "destroy" } %></li>
     <% end %>
   </ul>
+
   <div id="top-right">
+    <div id="top-msg-count">
+      <%=h get_num_of_last_messages %>
+    </div>
     <%= Time.now %>
   </div>
 </div>

@@ -63,11 +63,19 @@
   color: #FFFFFF;
 }
 
+#top-msg-count {
+  float: left;
+  margin-right: 100px;
+  background-color: #FF3366;
+  padding: 5px;
+  position: relative;
+  top: -5px;
+}
+
 #top-right {
   float: right;
   font-size: 12px;
   padding-top: 5px;
-  padding-right: 5px;
 }
 
 #content {

@@ -102,6 +102,12 @@ class ApplicationController < ActionController::Base
     return "application"
   end
   
+  helper_method :get_num_of_last_messages
+  def get_num_of_last_messages
+    @dashboard_settings = Setting.get_dashboard_settings
+    return Logentry.get_new_messages @dashboard_settings["timespan"], build_conditions_from_blacklist
+  end
+
   private
   def cache(key)
     unless output = CACHE.get(key)
