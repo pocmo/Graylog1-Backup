@@ -26,7 +26,16 @@ class ApiController < ApplicationController
     if params[:category].blank?
       category_condition = Array.new
     else
-      category_condition = [ ]
+      category = Category.find params[:category]
+  
+      filter_strings = Hash.new
+      category.filter_host.blank? ? filter_strings["host"] = "" : filter_strings["host"] = category.filter_host
+      category.filter_message.blank? ? filter_strings["message"] = "" : filter_strings["message"] = category.filter_message
+      category.filter_severity.blank? ? filter_strings["severity"] = "" : filter_strings["severity"] = category.filter_severity
+      category.filter_date_start.blank? ? filter_strings["date_start"] = "" : filter_strings["date_start"] = category.filter_date_start
+      category.filter_date_end.blank? ? filter_strings["date_end"] = "" : filter_strings["date_end"] = category.filter_date_end
+      
+      category_condition = build_conditions_from_filter_parameters filter_strings["host"], filter_strings["message"], filter_strings["severity"], filter_strings["date_start"], filter_strings["date_end"]
     end
 
     # Merge all conditions
