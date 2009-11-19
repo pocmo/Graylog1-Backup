@@ -23,19 +23,21 @@ class ApiController < ApplicationController
       start_condition = [ "ID > ?", params[:start_from_id] ]
     end
 
-    if params[:category].blank?
-      category_condition = Array.new
-    else
+    filter_strings = Hash.new
+    filter_strings["host"] = ""
+    filter_strings["message"] = ""
+    filter_strings["severity"] = ""
+    filter_strings["date_start"] = ""
+    filter_strings["date_end"] = ""
+
+    # Category Filter
+    if !params[:category].blank?
       category = Category.find params[:category]
-  
-      filter_strings = Hash.new
       category.filter_host.blank? ? filter_strings["host"] = "" : filter_strings["host"] = category.filter_host
       category.filter_message.blank? ? filter_strings["message"] = "" : filter_strings["message"] = category.filter_message
       category.filter_severity.blank? ? filter_strings["severity"] = "" : filter_strings["severity"] = category.filter_severity
       category.filter_date_start.blank? ? filter_strings["date_start"] = "" : filter_strings["date_start"] = category.filter_date_start
       category.filter_date_end.blank? ? filter_strings["date_end"] = "" : filter_strings["date_end"] = category.filter_date_end
-      
-      category_condition = build_conditions_from_filter_parameters filter_strings["host"], filter_strings["message"], filter_strings["severity"], filter_strings["date_start"], filter_strings["date_end"]
     end
     
     # Blacklist
@@ -44,9 +46,21 @@ class ApiController < ApplicationController
     else
       blacklist_conditions = []
     end
+    
+    # Filter (will override filters by category)
+    if !params[:filter].blank?
+      !params[:filter][:host].blank? && filter_strings["host"] = params[:filter][:host]
+      !params[:filter][:message].blank? && filter_strings["message"] = params[:filter][:message]
+      !params[:filter][:severity].blank? && filter_strings["severity"] = params[:filter][:severity]
+      !params[:filter][:date_start].blank? && filter_strings["date_start"] = params[:filter][:date_start]
+      !params[:filter][:date_end].blank? && filter_strings["date_end"] = params[:filter][:date_end]
+    end
+
+    # Build Filters
+    filter_condition = build_conditions_from_filter_parameters filter_strings["host"], filter_strings["message"], filter_strings["severity"], filter_strings["date_start"], filter_strings["date_end"]
 
     # Merge all conditions
-    conditions = Logentry.merge_conditions start_condition, category_condition, blacklist_conditions
+    conditions = Logentry.merge_conditions start_condition, filter_condition, blacklist_conditions
 
     logmessages = Logentry.find :all, :conditions => conditions, :limit => limit, :offset => offset, :order => "ID DESC"
     render :text => logmessages.to_json
