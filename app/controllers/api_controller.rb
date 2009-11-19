@@ -37,9 +37,16 @@ class ApiController < ApplicationController
       
       category_condition = build_conditions_from_filter_parameters filter_strings["host"], filter_strings["message"], filter_strings["severity"], filter_strings["date_start"], filter_strings["date_end"]
     end
+    
+    # Blacklist
+    if params[:blacklist].blank? || params[:blacklist] == 'true'
+      blacklist_conditions = build_conditions_from_blacklist
+    else
+      blacklist_conditions = []
+    end
 
     # Merge all conditions
-    conditions = Logentry.merge_conditions start_condition, category_condition
+    conditions = Logentry.merge_conditions start_condition, category_condition, blacklist_conditions
 
     logmessages = Logentry.find :all, :conditions => conditions, :limit => limit, :offset => offset, :order => "ID DESC"
     render :text => logmessages.to_json
