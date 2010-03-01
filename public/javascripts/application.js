@@ -1,6 +1,6 @@
 (function($){
 	
-GL = new function (){
+GL = new function () {
 	var self = this;
 
 	var $tbl,
@@ -67,7 +67,7 @@ GL = new function (){
 	};
 
   this.showFullMessageClick = function(e, value) {
-    $('#gl-message-' + value).hide();
+    $('#gl-message-' + value).remove();
     $('#gl-message-full-' + value).fadeIn();
     return false;
   }
