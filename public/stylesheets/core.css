@@ -94,6 +94,10 @@ td {
   background-color:#ffdddd;
 }
 
+#gl-table td:hover {
+  background-color:#ffcfdb;
+}
+
 .gl-table-valid-item {
   font-weight: bold;
 }
