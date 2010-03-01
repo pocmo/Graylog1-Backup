@@ -23,7 +23,7 @@
     <% records.each do |message| %>
       <tr class="table-row-<%= counter % 2 == 0 ? "light" : "dark" %>">
         <td class="log-table-mark-row"><%= check_box_tag "#{message.ID}_#{Time.now.to_i}", message.ID, false %></td>
-        <td><%= message.ReceivedAt %></td>
+        <td><%= message.ReceivedAt.strftime('%Y/%m/%d - %H:%M:%S') %></td>
         <td><%=h message.FromHost %></td>
         <td><%= message.human_readable_severity %></td>
         <td class="<%= is_valid_message?(message) ? "gl-table-valid-item" : "" %>">
