@@ -228,3 +228,13 @@ input, select {
 .dashboard-status-normal {
     background-color: #00b304;
 }
+
+#notification
+{
+    text-align:center;
+    padding:5px;
+    clear:both;
+    color:#ff3366;
+    font-weight:bold;
+    background-color:#ffffaa;
+}

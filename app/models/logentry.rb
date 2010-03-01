@@ -7,7 +7,14 @@ class Logentry < ActiveRecord::Base
     conditions = self.merge_conditions blacklist_conditions, timespan_condition
     return self.count :conditions => conditions
   end
-  
+
+  def self.count_new_messages_since timestamp, blacklist_conditions
+    timespan_condition = [ "ReceivedAt > ?", timestamp]
+    conditions = self.merge_conditions blacklist_conditions, timespan_condition
+    return self.count :conditions => conditions
+
+  end
+
   def self.alert? number_of_allowed_messages, new_messages
     return true if new_messages > number_of_allowed_messages
     return false

@@ -4,11 +4,16 @@ GL = new function () {
     var self = this;
 
     var $tbl,
+        loadedAt = null,
         reallyMsg = 'Are you sure?';
 
     this.init = function() {
         $tbl = $('#gl-table');
         $(document.body).actionController(self);
+
+        var date = new Date();
+        loadedAt = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+        window.setTimeout(self.checkNewMessages, 30000);
     };
 
     this.checkAllClick = function() {
@@ -70,6 +75,16 @@ GL = new function () {
         $('#gl-message-' + value).remove();
         $('#gl-message-full-' + value).fadeIn();
         return false;
+    };
+
+    this.checkNewMessages = function() {
+        $.getJSON('/logentries/new_messages_since', { since : loadedAt }, function(data) {
+            if (data.num > 0) {
+                $('#notification').html('<a href="/">' + data.num + ' new log message(s)' + "</a>").show();
+                document.title = '(' + data.num + ') Graylog';
+            }
+        })
+        window.setTimeout(self.checkNewMessages, 30000);
     }
 
     function serializeCheckboxes() {
@@ -93,7 +108,7 @@ GL = new function () {
 };
 
 $(function(){
-	GL.init();	
+    GL.init();
 });
 
 })(jQuery);

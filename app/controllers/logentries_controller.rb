@@ -37,4 +37,8 @@ class LogentriesController < ApplicationController
     redirect_back_or_default("/")
   end
 
+  def new_messages_since
+    @new_messages = Logentry.count_new_messages_since params[:since], build_conditions_from_blacklist
+    render :json => {'num' => @new_messages}
+  end
 end
