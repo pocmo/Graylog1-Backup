@@ -1,3 +1,8 @@
+This is a backup of Graylog 1. You probably do not want to use this version.
+Use the Graylog2 with gorillas and party hats: http://graylog2.org/
+
+-----------------
+
 This is Graylog. A Ruby on Rails based web interface to rsyslog.
 
 It is being developed by Jimdo - http://www.jimdo.com/
